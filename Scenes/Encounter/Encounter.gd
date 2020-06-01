@@ -13,29 +13,35 @@ var actions : Array
 var phrase : String
 var typos_made : int
 var max_attempts : int
+var active : bool
+var timer : Timer
 
 var phrases = [
-	"Bleach is not good for you",
-	"Stay at home, save lives",
-	"5G didn't cause the pandemic",
-	"This isn't a distraction from 5G being rolled out",
-	"You shouldn't be socialising on a crowded beach",
-	"Don't drive across the country to test your eye sight",
-	"If you can squat outside in protest, you can do it at home",
-	"Bill Gates has nothing to do with this",
+	"Bleach is not\ngood for you",
+	"Stay at home\nsave lives",
+	"5G didn't cause\nthe pandemic",
+	"This isn't a distraction\nfrom 5G being rolled out",
+	"You shouldn't be socialising\non a crowded beach",
+	"Don't drive across the country\nto test your eye sight",
+	"If you can squat outside in\nprotest, you can do it at home",
+	"Bill Gates has nothing\nto do with this",
 	"It isn't Obama's fault",
 	"Don't take antimalarial drugs\nwithout your doctor's approval",
-	"Wearing masks can protect you and those around you"
+	"Wearing masks can protect\nyou and those around you"
 ]
 
 func _ready():
 	phrase_label = get_node("Phrase")
 	time_label = get_node("TimeLabel")
 	typos_label = get_node("TyposLabel")
-	pass
+	timer = get_node("Timer")
+	
+func _process(delta):
+	if active:
+		update_time_remaining()
 		
 func _input(event):
-	if not visible:
+	if not visible or not active:
 		return
 
 	if not event is InputEventKey:
@@ -47,16 +53,19 @@ func _input(event):
 	if event.scancode < 256 and event.scancode != 32:
 		process_key_stroke(char(event.unicode))
 		
-func update_time_remaining(delta):
-	seconds_to_complete -= delta
+func update_time_remaining(value = null):
 	time_label.clear()
 	time_label.push_align(RichTextLabel.ALIGN_RIGHT)
 	time_label.append_bbcode("TIME REMAINING: ")
-	time_label.append_bbcode("%.2f" % seconds_to_complete)
+	
+	if not value:
+		time_label.append_bbcode("%.2f" % timer.time_left)
+	else:
+		time_label.append_bbcode("%.2f" % value)
 	
 func draw_typos_remaining():
 	typos_label.clear()
-	typos_label.append_bbcode(str(max_attempts - typos_made))
+	typos_label.append_bbcode(str(max(max_attempts - typos_made, 0)))
 	typos_label.append_bbcode(" TYPOS REMAINING")
 
 func draw_phrase():
@@ -78,11 +87,15 @@ func process_key_stroke(key_char):
 	var result = phrase[next_letter].nocasecmp_to(key_char) == 0
 	actions.append(result)
 	
-	if !result and typos_made == max_attempts:
+	if !result:
+		typos_made += 1
+		
+	draw_typos_remaining()
+	
+	if !result and typos_made > max_attempts:
 		finish(false)
 	else:
 		if next_letter == len(phrase) - 1:
-			# get_tree().root.get_node("Globals").set_next_scene("test")
 			finish(true)
 		else:
 			if phrase[next_letter + 1] == " " or phrase[next_letter + 1] == "\n":
@@ -94,18 +107,22 @@ func process_key_stroke(key_char):
 	draw_phrase()
 	
 func finish(won):
+	active = false
+	timer.stop()
 	emit_signal("encounter_finished", won)
 	
 func roll_new_encounter(enemy):
-	print(enemy.name)
 	randomize()
 
 	actions = []
 	max_attempts = max(rand_range(1, 10), 3)
 	typos_made = 0
 	
-	seconds_to_complete = ceil(rand_range(2, 10))
-	phrase_index = 9 #rand_range(0, len(phrases) - 1)
+	seconds_to_complete = ceil(rand_range(3, 10))
+	timer.wait_time = seconds_to_complete
+	timer.one_shot = true
+
+	phrase_index = rand_range(0, len(phrases) - 1)
 	phrase = phrases[phrase_index]
 
 	next_letter = 0
@@ -113,7 +130,7 @@ func roll_new_encounter(enemy):
 	phrase_label.push_align(RichTextLabel.ALIGN_CENTER)
 	phrase_label.append_bbcode(phrase.to_upper())
 	
-	update_time_remaining(0)
+	update_time_remaining(seconds_to_complete)
 	draw_typos_remaining()
 	
 	visible = true
@@ -121,7 +138,8 @@ func roll_new_encounter(enemy):
 	emit_signal("encounter_setup")
 
 func start():
-	print("start encounter")
+	active = true
+	timer.start()
 
 func _on_transition_blanked(tag):
 	if tag.next_scene == "encounter":
@@ -133,3 +151,6 @@ func _on_transition_unblanked(tag):
 
 func _on_countdown_finished():
 	start()
+
+func _on_timer_timeout():
+	finish(false)
