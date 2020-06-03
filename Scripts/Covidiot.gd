@@ -24,15 +24,16 @@ func _physics_process(delta):
 		var player : KinematicBody2D = get_node(player_path)
 		velocity.x = position.direction_to(player.position).x * speed
 		
+	if velocity.x != 0:
+		if velocity.x < 0:
+			animation_player.play("Walk_Left")
+		else:
+			animation_player.play("Walk_Right")
+		
 	move_and_slide(velocity)
 
 func die():
 	queue_free()
 
 func _on_Area2D_body_entered(body):
-	print(self.name)
-	print(body.name)
-	print(body.position)
-	print(body.get_path())
-	print("?")
 	emit_signal("found_player", self)
