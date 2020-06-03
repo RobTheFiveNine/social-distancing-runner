@@ -1,8 +1,8 @@
 extends KinematicBody2D
 
-export (int) var speed = 300
-export (int) var jump_strength = 400
-export (int) var fall_strength = 500
+export (int) var speed = 600
+export (int) var jump_strength = 1000
+export (int) var fall_strength = 900
 export (float) var hang_time = 0.5
 export (bool) var ignore_input = false
 
@@ -21,6 +21,7 @@ var animation_player : AnimationPlayer
 func _ready():
 	animation_player = get_node("AnimationPlayer")
 	animation_player.play("Neutral")
+	connect_covidiot_events()
 	
 func _physics_process(delta):
 	if not ignore_input:
@@ -43,9 +44,6 @@ func handle_vertical_velocity(delta):
 
 	if jumping:
 		velocity.y = jump_strength * -1
-		
-		#if is_on_ceiling():
-			#jump_delta = hang_time + 1
 	
 		if jump_delta >= hang_time:
 			fall()
@@ -104,3 +102,9 @@ func process_encounter_result(won):
 		pass
 	else:
 		pass
+
+func connect_covidiot_events():
+	for c in get_parent().get_children():
+		if c is Covidiot:
+			c.player_path = get_path()
+			c.connect("found_player", self, "_on_enemy_found_player")

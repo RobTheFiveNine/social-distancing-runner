@@ -16,12 +16,9 @@ extents = Vector2( 215.868, 21.2995 )
 script = ExtResource( 5 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 192.696, 562.355 )
+position = Vector2( 133.067, 613.104 )
 z_index = 10
 collision_mask = 10
-speed = 600
-jump_strength = 1000
-fall_strength = 900
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( 608.764, -197.713 )
@@ -76,11 +73,11 @@ visible = false
 z_index = 99
 
 [node name="Covidiot_1" parent="." instance=ExtResource( 3 )]
-position = Vector2( 681.924, 756.334 )
+position = Vector2( 1049.22, 753.972 )
 z_index = 1
 
 [node name="Covidiot_2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 954.695, 753.95 )
+position = Vector2( 1312.54, 372.485 )
 variation = 1
 [connection signal="ready_for_encounter" from="Player" to="CanvasLayer/Transition" method="blank"]
 [connection signal="encounter_finished" from="CanvasLayer/Encounter" to="." method="_on_encounter_finished"]
