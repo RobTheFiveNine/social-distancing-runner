@@ -4,8 +4,16 @@ class_name Countdown
 
 signal finished
 
+var player : AnimationPlayer
+
+func _ready():
+	player = get_node("AnimationPlayer")
+
+func reset():
+	player.seek(0, true)
+
 func start():
-	get_node("AnimationPlayer").play("Pulse")
+	player.play("Pulse")
 	get_node("Timer").start()
 
 func _on_timer_timeout():

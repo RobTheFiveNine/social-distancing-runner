@@ -4,7 +4,6 @@
 [ext_resource path="res://Prefabs/Characters/Player/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Prefabs/Countdown/Countdown.tscn" type="PackedScene" id=4]
 
-
 [sub_resource type="DynamicFontData" id=1]
 font_path = "res://Fonts/Roboto-Bold.ttf"
 
