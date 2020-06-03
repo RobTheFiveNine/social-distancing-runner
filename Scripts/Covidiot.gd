@@ -19,7 +19,7 @@ func _physics_process(delta):
 	move_and_slide(velocity)
 
 func die():
-	get_parent().remove_child(self)
+	queue_free()
 
 func _on_Area2D_body_entered(body):
 	print(body.name)

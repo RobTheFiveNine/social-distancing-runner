@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scenes/Encounter/Encounter.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/Characters/Player/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://SFX/KeyPress.wav" type="AudioStream" id=3]
 [ext_resource path="res://Prefabs/Countdown/Countdown.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scripts/PolyphonyAudioPlayer.gd" type="Script" id=5]
 
 [sub_resource type="DynamicFontData" id=1]
 font_path = "res://Fonts/Roboto-Bold.ttf"
@@ -90,5 +92,9 @@ one_shot = true
 
 [node name="Countdown" parent="." instance=ExtResource( 4 )]
 z_index = 99
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+script = ExtResource( 5 )
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="finished" from="Countdown" to="." method="_on_countdown_finished"]

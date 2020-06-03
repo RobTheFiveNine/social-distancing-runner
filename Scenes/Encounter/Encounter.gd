@@ -15,6 +15,7 @@ var typos_made : int
 var max_attempts : int
 var active : bool
 var timer : Timer
+var key_sfx_player : AudioStreamPlayer
 
 var phrases = [
 	"Bleach is not\ngood for you",
@@ -35,6 +36,7 @@ func _ready():
 	time_label = get_node("TimeLabel")
 	typos_label = get_node("TyposLabel")
 	timer = get_node("Timer")
+	key_sfx_player = get_node("AudioStreamPlayer")
 	
 func _process(delta):
 	if active:
@@ -84,6 +86,8 @@ func draw_phrase():
 		phrase_label.append_bbcode(phrase[i].to_upper())
 		
 func process_key_stroke(key_char):
+	key_sfx_player.play()
+
 	var result = phrase[next_letter].nocasecmp_to(key_char) == 0
 	actions.append(result)
 	

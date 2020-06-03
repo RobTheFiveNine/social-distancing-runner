@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/KeyPress.wav-62e7d081332b489647d9d84f5a6d4c28.sample"
+
+[deps]
+
+source_file="res://SFX/KeyPress.wav"
+dest_files=[ "res://.import/KeyPress.wav-62e7d081332b489647d9d84f5a6d4c28.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
