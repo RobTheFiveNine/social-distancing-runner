@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/right_foot.40pc.png-b18214025be5e1b9d983a979bb8ecd7b.stex"
+path="res://.import/head.40pc.png-298331d3b990edfd2441c892a8985b69.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/Beach/Characters/Player/Sprites/right_foot.40pc.png"
-dest_files=[ "res://.import/right_foot.40pc.png-b18214025be5e1b9d983a979bb8ecd7b.stex" ]
+source_file="res://Prefabs/Characters/Covidiot_1/Sprites/head.40pc.png"
+dest_files=[ "res://.import/head.40pc.png-298331d3b990edfd2441c892a8985b69.stex" ]
 
 [params]
 

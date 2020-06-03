@@ -4,15 +4,15 @@ class_name Covidiot
 
 signal found_player(enemy)
 
+export (int) var variation = 0
 
 var velocity : Vector2
+var animation_player : AnimationPlayer
 
-
-# Called when the node enters the scene tree for the first time.
 func _ready():	
 	velocity = Vector2()
-	pass # Replace with function body.
-
+	animation_player = get_node("AnimationPlayer")
+	animation_player.play("Neutral")
 
 func _physics_process(delta):
 	velocity.y = 900
@@ -22,5 +22,5 @@ func die():
 	get_parent().remove_child(self)
 
 func _on_Area2D_body_entered(body):
-	print("body entered")
+	print(body.name)
 	emit_signal("found_player", self)

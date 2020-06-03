@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/left_hand.40pc.png-44db172aad1060fb0e0deef7c5203def.stex"
+path="res://.import/right_foot.40pc.png-742e4832c418b7c52e136ae1c7d523d5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/Beach/Characters/Player/Sprites/left_hand.40pc.png"
-dest_files=[ "res://.import/left_hand.40pc.png-44db172aad1060fb0e0deef7c5203def.stex" ]
+source_file="res://Prefabs/Characters/Player/Sprites/right_foot.40pc.png"
+dest_files=[ "res://.import/right_foot.40pc.png-742e4832c418b7c52e136ae1c7d523d5.stex" ]
 
 [params]
 

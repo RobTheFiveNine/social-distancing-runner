@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/right_hand.40pc.png-15faa2ea6ae2b4a1ece85bbe9f3014f7.stex"
+path="res://.import/Beer.40pc.png-143b127d0cc7c1b5bb5f8c9abf65f692.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/Beach/Characters/Player/Sprites/right_hand.40pc.png"
-dest_files=[ "res://.import/right_hand.40pc.png-15faa2ea6ae2b4a1ece85bbe9f3014f7.stex" ]
+source_file="res://Sprites/Items/Beer.40pc.png"
+dest_files=[ "res://.import/Beer.40pc.png-143b127d0cc7c1b5bb5f8c9abf65f692.stex" ]
 
 [params]
 
