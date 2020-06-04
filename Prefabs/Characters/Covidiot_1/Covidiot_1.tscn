@@ -7,8 +7,9 @@
 [ext_resource path="res://Prefabs/Characters/Covidiot_1/Covidiot_1.gd" type="Script" id=5]
 [ext_resource path="res://Sprites/Items/Beer.40pc.png" type="Texture" id=6]
 
-[sub_resource type="CircleShape2D" id=1]
-radius = 63.4743
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 55.951
+height = 80.645
 
 [sub_resource type="StreamTexture" id=2]
 flags = 4
@@ -843,7 +844,7 @@ tracks/33/keys = {
 "values": [ false ]
 }
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=7]
 resource_name = "Walk_Right"
 loop = true
 tracks/0/type = "bezier"
@@ -1223,8 +1224,8 @@ collision_mask = 2
 script = ExtResource( 5 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 9.19538, 82.9513 )
-scale = Vector2( 1.013, 1.459 )
+position = Vector2( 15.057, 84.689 )
+z_index = 99
 z_as_relative = false
 shape = SubResource( 1 )
 __meta__ = {
@@ -1289,7 +1290,7 @@ texture = ExtResource( 6 )
 anims/Jump = SubResource( 4 )
 anims/Neutral = SubResource( 5 )
 anims/Walk_Left = SubResource( 6 )
-anims/Walk_Right = SubResource( 9 )
+anims/Walk_Right = SubResource( 7 )
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 8
