@@ -3,7 +3,7 @@ extends Node2D
 var last_encounter_won = false
 
 func _ready():
-	pass
+	get_node("CanvasLayer/Transition").visible = true
 
 func _on_encounter_finished(won):
 	last_encounter_won = won
