@@ -7,6 +7,7 @@ signal found_player(enemy)
 export (int) var variation = 0
 export (int) var speed = 100
 export (bool) var pursuit = false
+export (bool) var ignore_physics = false
 
 var velocity : Vector2
 var animation_player : AnimationPlayer
@@ -18,6 +19,9 @@ func _ready():
 	animation_player.play("Neutral")
 
 func _physics_process(delta):
+	if ignore_physics:
+		return
+
 	velocity.y = 900
 	
 	if pursuit:
