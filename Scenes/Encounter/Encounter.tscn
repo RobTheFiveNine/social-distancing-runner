@@ -98,5 +98,15 @@ z_index = 99
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
 script = ExtResource( 5 )
+
+[node name="EnemyPlaceHolder" type="ColorRect" parent="."]
+margin_left = 1542.77
+margin_top = 763.443
+margin_right = 1742.77
+margin_bottom = 935.83
+rect_pivot_offset = Vector2( 100, 0 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="finished" from="Countdown" to="." method="_on_countdown_finished"]

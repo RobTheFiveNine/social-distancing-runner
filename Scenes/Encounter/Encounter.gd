@@ -37,6 +37,7 @@ func _ready():
 	typos_label = get_node("TyposLabel")
 	timer = get_node("Timer")
 	key_sfx_player = get_node("AudioStreamPlayer")
+	get_node("EnemyPlaceHolder").visible = false
 	
 func _process(delta):
 	if active:
@@ -115,7 +116,24 @@ func finish(won):
 	timer.stop()
 	emit_signal("encounter_finished", won)
 	
+func setup_enemy_sprite(enemy):
+	var current = get_node("Enemy")
+	if current:
+		current.queue_free()
+
+	var e : Covidiot = enemy.duplicate(DUPLICATE_USE_INSTANCING)
+	e.name = "Enemy"
+	e.collision_layer = 0
+	e.collision_mask = 0
+	e.position = get_node("EnemyPlaceHolder").rect_position
+	e.ignore_physics = true
+	e.pursuit = false
+
+	add_child(e)
+	
 func roll_new_encounter(enemy):
+	setup_enemy_sprite(enemy)
+
 	randomize()
 
 	actions = []
