@@ -61,7 +61,7 @@ func handle_vertical_velocity(delta):
 		fall(true)
 
 	if falling:
-		if (is_on_floor()):
+		if is_on_floor():
 			if Input.is_action_pressed("move_right"):
 				animation_player.play("Walk_Right")
 			else:
@@ -124,6 +124,7 @@ func process_encounter_result(won):
 	if won:
 		in_encounter_with.die()
 	else:
+		get_node("Hit").play()
 		animation_player.play("Knock_Back")
 		knock_back_x = position.x - 800
 		knock_back_y = position.y - 300
