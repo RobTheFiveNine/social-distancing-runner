@@ -3,6 +3,7 @@ extends KinematicBody2D
 class_name Covidiot
 
 signal found_player(enemy)
+signal died(death_position)
 
 export (int) var variation = 0
 export (int) var speed = 100
@@ -37,6 +38,7 @@ func _physics_process(delta):
 	move_and_slide(velocity)
 
 func die():
+	emit_signal("died", position)
 	queue_free()
 
 func _on_Area2D_body_entered(body):

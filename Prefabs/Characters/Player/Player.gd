@@ -136,3 +136,4 @@ func connect_covidiot_events():
 		if c is Covidiot:
 			c.player_path = get_path()
 			c.connect("found_player", self, "_on_enemy_found_player")
+			c.connect("died", get_parent(), "_on_enemy_died")
