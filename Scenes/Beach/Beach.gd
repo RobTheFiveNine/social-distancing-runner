@@ -1,22 +1,26 @@
 extends Node2D
 
+export (String) var game_over_scene_path = "res://Scenes/Game_Over/Game_Over.tscn"
+
 var last_encounter_won = false
 var smoke : CPUParticles2D
 var time_label : Label
 var timer : Timer
+var transition : Transition
 
 func _ready():
 	get_node("CanvasLayer/Transition").visible = true
 	smoke = get_node("Smoke")
 	time_label = get_node("CanvasLayer/MarginContainer/GridContainer/TimeLabel")
 	timer = get_node("Timer")
+	transition = get_node("CanvasLayer/Transition")
 	
 func _process(delta):
 	time_label.text = "TIME\n%.2f" % timer.time_left
 
 func _on_encounter_finished(won):
 	last_encounter_won = won
-	get_node("CanvasLayer/Transition").blank({
+	transition.blank({
 		next_scene = "beach"
 	})
 
@@ -30,7 +34,7 @@ func _on_transition_blanked(tag):
 	if tag.next_scene == "beach":
 		get_node("CanvasLayer/Encounter").visible = false
 		get_node("CanvasLayer/MarginContainer").visible = true
-		get_node("CanvasLayer/Transition").unblank()
+		transition.unblank()
 	elif tag.next_scene == "encounter":
 		get_node("CanvasLayer/MarginContainer").visible = false
 
@@ -52,12 +56,20 @@ func draw_remaining_hp(hp):
 		).modulate = Color(1, 1, 1, 0.23)
 		
 func end_game():
-	pass
+	$Timer.paused = true
+	yield(get_tree().create_timer(2.0), "timeout")
+	
+	transition.blank({
+		next_scene = "game_over"
+	})
+	
+	yield(transition, "blanked")
+	get_tree().change_scene(game_over_scene_path)
 
-func _on_Player_hit(remaining_health):
+func _on_Player_hit(remaining_health, player_position):
 	if remaining_health == 0:
-		_on_enemy_died($Player.position)
-		$Player.visible = false
+		Globals.died = true
+		_on_enemy_died(player_position)
 		end_game()
 	else:
 		draw_remaining_hp(remaining_health)

@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name Transition
+
 signal blanked(tag)
 signal unblanked(tag)
 

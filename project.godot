@@ -18,10 +18,16 @@ _global_script_classes=[ {
 "class": "Covidiot",
 "language": "GDScript",
 "path": "res://Scripts/Covidiot.gd"
+}, {
+"base": "Node2D",
+"class": "Transition",
+"language": "GDScript",
+"path": "res://Transitions/Transition.gd"
 } ]
 _global_script_class_icons={
 "Countdown": "",
-"Covidiot": ""
+"Covidiot": "",
+"Transition": ""
 }
 
 [application]

@@ -11,7 +11,7 @@ export (int) var limit_bottom = 2550
 
 signal ready_for_encounter(enemy)
 signal processed_encounter_result()
-signal hit(remaining_health)
+signal hit(remaining_health, player_position)
 
 var jump_delta = 0
 var running = false
@@ -43,8 +43,10 @@ func _physics_process(delta):
 			die()
 	
 func die():
+	collision_layer = 0
 	ignore_input = true
-	emit_signal("hit", 0)
+	emit_signal("hit", 0, position)
+	visible = false
 
 func fall(play_anim = false):
 	falling = true
@@ -136,11 +138,15 @@ func process_encounter_result(won):
 		in_encounter_with.die()
 	else:
 		health = health - 1
-		emit_signal("hit", health)
-		get_node("Hit").play()
-		animation_player.play("Knock_Back")
-		knock_back_x = position.x - 800
-		knock_back_y = position.y - 300
+		emit_signal("hit", health, position)
+
+		if health == 0:
+			die()
+		else:
+			get_node("Hit").play()
+			animation_player.play("Knock_Back")
+			knock_back_x = position.x - 800
+			knock_back_y = position.y - 300
 		
 	in_encounter_with = null
 
