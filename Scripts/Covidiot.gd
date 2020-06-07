@@ -13,6 +13,7 @@ export (bool) var ignore_physics = false
 var velocity : Vector2
 var animation_player : AnimationPlayer
 var player_path : String
+var pursuiting = false
 
 func _ready():	
 	velocity = Vector2()
@@ -23,9 +24,10 @@ func _physics_process(delta):
 	if ignore_physics:
 		return
 
+	velocity.x = 0
 	velocity.y = 900
 	
-	if pursuit:
+	if pursuiting:
 		var player : KinematicBody2D = get_node(player_path)
 		velocity.x = position.direction_to(player.position).x * speed
 		
@@ -34,6 +36,8 @@ func _physics_process(delta):
 			animation_player.play("Walk_Left")
 		else:
 			animation_player.play("Walk_Right")
+	else:
+		animation_player.play("Neutral")
 		
 	move_and_slide(velocity)
 
@@ -43,3 +47,10 @@ func die():
 
 func _on_Area2D_body_entered(body):
 	emit_signal("found_player", self)
+
+func _on_LineOfSightArea_body_entered(body):
+	if pursuit:
+		pursuiting = true
+	
+func _on_LineOfSightArea_body_exited(body):
+	pursuiting = false

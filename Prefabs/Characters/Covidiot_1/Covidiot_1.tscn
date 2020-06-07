@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Prefabs/Characters/Covidiot_1/Sprites/head.40pc.png" type="Texture" id=1]
 [ext_resource path="res://Prefabs/Characters/Covidiot_1/Sprites/right_foot.40pc.png" type="Texture" id=2]
@@ -1218,6 +1218,9 @@ tracks/33/keys = {
 
 [sub_resource type="RectangleShape2D" id=8]
 
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 800, 212.172 )
+
 [node name="Covidiot_1" type="KinematicBody2D"]
 collision_layer = 4
 collision_mask = 2
@@ -1303,4 +1306,13 @@ shape = SubResource( 8 )
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="LineOfSightArea" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LineOfSightArea"]
+position = Vector2( 0, -11.708 )
+shape = SubResource( 9 )
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_entered" from="LineOfSightArea" to="." method="_on_LineOfSightArea_body_entered"]
+[connection signal="body_exited" from="LineOfSightArea" to="." method="_on_LineOfSightArea_body_exited"]
