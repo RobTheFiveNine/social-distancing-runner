@@ -6,9 +6,11 @@ export (int) var jump_strength = 1000
 export (int) var fall_strength = 900
 export (float) var hang_time = 0.5
 export (bool) var ignore_input = false
+export (int) var health = 3
 
 signal ready_for_encounter(enemy)
 signal processed_encounter_result()
+signal hit(remaining_health)
 
 var jump_delta = 0
 var running = false
@@ -62,10 +64,11 @@ func handle_vertical_velocity(delta):
 
 	if falling:
 		if is_on_floor():
-			if Input.is_action_pressed("move_right"):
-				animation_player.play("Walk_Right")
-			else:
-				animation_player.play("Neutral")
+			if knock_back_x == null:
+				if Input.is_action_pressed("move_right"):
+					animation_player.play("Walk_Right")
+				else:
+					animation_player.play("Neutral")
 			falling = false
 			
 func play_animation(name):
@@ -120,10 +123,12 @@ func _on_enemy_found_player(enemy : Covidiot):
 		enemy = enemy
 	})
 
-func process_encounter_result(won):	
+func process_encounter_result(won):
 	if won:
 		in_encounter_with.die()
 	else:
+		health = health - 1
+		emit_signal("hit", health)
 		get_node("Hit").play()
 		animation_player.play("Knock_Back")
 		knock_back_x = position.x - 800

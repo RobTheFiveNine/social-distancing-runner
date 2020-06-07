@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Prefabs/Characters/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Transitions/BoxInAndOut.tscn" type="PackedScene" id=2]
@@ -17,17 +17,25 @@
 [ext_resource path="res://Sprites/Background/cloud_1.40pc.png" type="Texture" id=15]
 [ext_resource path="res://Music/Loyalty_Freak_Music_-_04_-_Cant_Stop_My_Feet_.ogg" type="AudioStream" id=16]
 [ext_resource path="res://Prefabs/Particles/Smoke.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Sprites/Items/Heart.10pc.png" type="Texture" id=18]
 
-[sub_resource type="ConvexPolygonShape2D" id=1]
-points = PoolVector2Array( 512, 512, 0, 512, 0, 0, 512, 0 )
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://Fonts/joystix.monospace.ttf"
 
-[sub_resource type="ConvexPolygonShape2D" id=2]
-points = PoolVector2Array( 0, 0, 352, 0, 480, 64, 512, 192, 512, 512, 0, 512 )
+[sub_resource type="DynamicFont" id=2]
+size = 35
+font_data = SubResource( 1 )
 
 [sub_resource type="ConvexPolygonShape2D" id=3]
+points = PoolVector2Array( 512, 512, 0, 512, 0, 0, 512, 0 )
+
+[sub_resource type="ConvexPolygonShape2D" id=4]
+points = PoolVector2Array( 0, 0, 352, 0, 480, 64, 512, 192, 512, 512, 0, 512 )
+
+[sub_resource type="ConvexPolygonShape2D" id=5]
 points = PoolVector2Array( 0, 160, 32, 64, 160, 0, 512, 0, 512, 512, 0, 512 )
 
-[sub_resource type="TileSet" id=4]
+[sub_resource type="TileSet" id=6]
 0/name = "Sand_Tile.50pc.png 0"
 0/texture = ExtResource( 6 )
 0/tex_offset = Vector2( 0, 0 )
@@ -38,14 +46,14 @@ points = PoolVector2Array( 0, 160, 32, 64, 160, 0, 512, 0, 512, 512, 0, 512 )
 0/navigation_offset = Vector2( 0, 0 )
 0/shape_offset = Vector2( 0, 0 )
 0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-0/shape = SubResource( 1 )
+0/shape = SubResource( 3 )
 0/shape_one_way = false
 0/shape_one_way_margin = 1.0
 0/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 1 ),
+"shape": SubResource( 3 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 0/z_index = 0
@@ -59,14 +67,14 @@ points = PoolVector2Array( 0, 160, 32, 64, 160, 0, 512, 0, 512, 512, 0, 512 )
 1/navigation_offset = Vector2( 0, 0 )
 1/shape_offset = Vector2( 0, 0 )
 1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-1/shape = SubResource( 2 )
+1/shape = SubResource( 4 )
 1/shape_one_way = false
 1/shape_one_way_margin = 1.0
 1/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 2 ),
+"shape": SubResource( 4 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 1/z_index = 0
@@ -94,14 +102,14 @@ points = PoolVector2Array( 0, 160, 32, 64, 160, 0, 512, 0, 512, 512, 0, 512 )
 4/navigation_offset = Vector2( 0, 0 )
 4/shape_offset = Vector2( 0, 0 )
 4/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-4/shape = SubResource( 3 )
+4/shape = SubResource( 5 )
 4/shape_one_way = false
 4/shape_one_way_margin = 1.0
 4/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 3 ),
+"shape": SubResource( 5 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 4/z_index = 0
@@ -134,16 +142,16 @@ points = PoolVector2Array( 0, 160, 32, 64, 160, 0, 512, 0, 512, 512, 0, 512 )
 6/shapes = [  ]
 6/z_index = 0
 
-[sub_resource type="ConvexPolygonShape2D" id=5]
+[sub_resource type="ConvexPolygonShape2D" id=7]
 points = PoolVector2Array( 0, 0, 80, 0, 104, 8, 120, 24, 128, 40, 128, 128, 0, 128 )
 
-[sub_resource type="ConvexPolygonShape2D" id=6]
+[sub_resource type="ConvexPolygonShape2D" id=8]
 points = PoolVector2Array( 128, 0, 128, 128, 0, 128, 0, 16, 8, 8, 24, 0, 48, 0 )
 
-[sub_resource type="ConvexPolygonShape2D" id=7]
+[sub_resource type="ConvexPolygonShape2D" id=9]
 points = PoolVector2Array( 128, 128, 0, 128, 0, 0, 128, 0 )
 
-[sub_resource type="TileSet" id=8]
+[sub_resource type="TileSet" id=10]
 0/name = "Sand_Platform_Tile_Left.12.5pc.png 0"
 0/texture = ExtResource( 12 )
 0/tex_offset = Vector2( 0, 0 )
@@ -154,14 +162,14 @@ points = PoolVector2Array( 128, 128, 0, 128, 0, 0, 128, 0 )
 0/navigation_offset = Vector2( 0, 0 )
 0/shape_offset = Vector2( 0, 0 )
 0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-0/shape = SubResource( 5 )
+0/shape = SubResource( 7 )
 0/shape_one_way = true
 0/shape_one_way_margin = 5.0
 0/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": true,
 "one_way_margin": 5.0,
-"shape": SubResource( 5 ),
+"shape": SubResource( 7 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 0/z_index = 0
@@ -175,14 +183,14 @@ points = PoolVector2Array( 128, 128, 0, 128, 0, 0, 128, 0 )
 1/navigation_offset = Vector2( 0, 0 )
 1/shape_offset = Vector2( 0, 0 )
 1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-1/shape = SubResource( 6 )
+1/shape = SubResource( 8 )
 1/shape_one_way = true
 1/shape_one_way_margin = 5.0
 1/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": true,
 "one_way_margin": 5.0,
-"shape": SubResource( 6 ),
+"shape": SubResource( 8 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 1/z_index = 0
@@ -196,14 +204,14 @@ points = PoolVector2Array( 128, 128, 0, 128, 0, 0, 128, 0 )
 2/navigation_offset = Vector2( 0, 0 )
 2/shape_offset = Vector2( 0, 0 )
 2/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-2/shape = SubResource( 7 )
+2/shape = SubResource( 9 )
 2/shape_one_way = true
 2/shape_one_way_margin = 5.0
 2/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": true,
 "one_way_margin": 5.0,
-"shape": SubResource( 7 ),
+"shape": SubResource( 9 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 2/z_index = 0
@@ -242,6 +250,81 @@ visible = false
 visible = false
 z_index = 99
 
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchor_right = 1.0
+margin_bottom = 101.0
+custom_constants/margin_right = 50
+custom_constants/margin_top = 25
+custom_constants/margin_left = 25
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/MarginContainer"]
+margin_left = 25.0
+margin_top = 25.0
+margin_right = 1870.0
+margin_bottom = 126.0
+custom_constants/hseparation = 0
+columns = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/GridContainer"]
+margin_right = 615.0
+margin_bottom = 101.0
+size_flags_horizontal = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HP1" type="TextureRect" parent="CanvasLayer/MarginContainer/GridContainer/HBoxContainer"]
+margin_right = 97.0
+margin_bottom = 101.0
+texture = ExtResource( 18 )
+
+[node name="HP2" type="TextureRect" parent="CanvasLayer/MarginContainer/GridContainer/HBoxContainer"]
+margin_left = 101.0
+margin_right = 198.0
+margin_bottom = 101.0
+texture = ExtResource( 18 )
+
+[node name="HP3" type="TextureRect" parent="CanvasLayer/MarginContainer/GridContainer/HBoxContainer"]
+margin_left = 202.0
+margin_right = 299.0
+margin_bottom = 101.0
+texture = ExtResource( 18 )
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer/MarginContainer/GridContainer"]
+margin_left = 615.0
+margin_right = 1230.0
+margin_bottom = 101.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0.352941, 0.180392, 0.0823529, 1 )
+text = "SCORE
+999,999"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TimeLabel" type="Label" parent="CanvasLayer/MarginContainer/GridContainer"]
+margin_left = 1230.0
+margin_right = 1845.0
+margin_bottom = 101.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0.352941, 0.180392, 0.0823529, 1 )
+text = "TIME
+2:00"
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Covidiot_1" parent="." instance=ExtResource( 3 )]
 position = Vector2( 955.329, 838.474 )
 z_index = 1
@@ -254,7 +337,7 @@ speed = 300
 pursuit = true
 
 [node name="TileMap" type="TileMap" parent="."]
-tile_set = SubResource( 4 )
+tile_set = SubResource( 6 )
 cell_size = Vector2( 512, 512 )
 cell_quadrant_size = 64
 cell_custom_transform = Transform2D( 0, 0, 0, 0, 0, 0 )
@@ -265,7 +348,7 @@ tile_data = PoolIntArray( 196607, 4, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0
 
 [node name="Platforms" type="TileMap" parent="."]
 position = Vector2( 0, -39.425 )
-tile_set = SubResource( 8 )
+tile_set = SubResource( 10 )
 cell_size = Vector2( 128, 128 )
 collision_layer = 2
 collision_mask = 5
@@ -295,14 +378,20 @@ texture = ExtResource( 15 )
 pause_mode = 2
 stream = ExtResource( 16 )
 volume_db = -10.0
-autoplay = true
 
 [node name="Smoke" parent="." instance=ExtResource( 17 )]
 position = Vector2( 450.393, 868.85 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 120.0
+one_shot = true
+autostart = true
+[connection signal="hit" from="Player" to="." method="_on_Player_hit"]
 [connection signal="ready_for_encounter" from="Player" to="CanvasLayer/Transition" method="blank"]
 [connection signal="encounter_finished" from="CanvasLayer/Encounter" to="." method="_on_encounter_finished"]
 [connection signal="encounter_setup" from="CanvasLayer/Encounter" to="CanvasLayer/Transition" method="unblank"]
-[connection signal="blanked" from="CanvasLayer/Transition" to="." method="_on_transition_blanked"]
 [connection signal="blanked" from="CanvasLayer/Transition" to="CanvasLayer/Encounter" method="_on_transition_blanked"]
-[connection signal="unblanked" from="CanvasLayer/Transition" to="." method="_on_transition_unblanked"]
+[connection signal="blanked" from="CanvasLayer/Transition" to="." method="_on_transition_blanked"]
 [connection signal="unblanked" from="CanvasLayer/Transition" to="CanvasLayer/Encounter" method="_on_transition_unblanked"]
+[connection signal="unblanked" from="CanvasLayer/Transition" to="." method="_on_transition_unblanked"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
