@@ -1,21 +1,12 @@
 extends Node
 
+export (int) var items_available = 1
+export (int) var items_collected = 0
 
-var next_scene : String
+export (int) var covidiots_generated = 1
+export (int) var covidiots_defeated = 0
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	print('globals ready')
-	pass # Replace with function body.
+export (int) var time_remaining = 0
+export (int) var coin_value_collected = 0
 
-func _process(delta):
-	if next_scene != "":
-		print(next_scene)
-		
-func set_next_scene(value):
-	print("globals::set_next_scene")
-	next_scene = value
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+export (bool) var died = false

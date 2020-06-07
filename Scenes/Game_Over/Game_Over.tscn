@@ -1,0 +1,343 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Scenes/Game_Over/Game_Over.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Game_Over/Stat_Font.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Sprites/Background/Background-1.40pc.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Background/cloud_2.40pc.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/Background/cloud_1.40pc.png" type="Texture" id=5]
+[ext_resource path="res://Transitions/BoxInAndOut.tscn" type="PackedScene" id=7]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://Fonts/joystix.monospace.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 100
+font_data = SubResource( 1 )
+
+[sub_resource type="Animation" id=3]
+loop = true
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("CanvasLayer/MarginContainer2/Input_Notice:custom_colors/font_color:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("CanvasLayer/MarginContainer2/Input_Notice:custom_colors/font_color:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("CanvasLayer/MarginContainer2/Input_Notice:custom_colors/font_color:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("CanvasLayer/MarginContainer2/Input_Notice:custom_colors/font_color:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 0.4, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5, 1 )
+}
+
+[node name="Game_Over" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.690196, 0.866667, 1, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer"]
+margin_left = -469.454
+margin_top = 82.8447
+margin_right = 1104.55
+margin_bottom = 400.845
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer"]
+margin_left = 1303.72
+margin_top = 656.662
+margin_right = 1888.72
+margin_bottom = 976.662
+texture = ExtResource( 5 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect4" type="TextureRect" parent="CanvasLayer"]
+margin_left = 1003.3
+margin_top = 264.44
+margin_right = 1329.3
+margin_bottom = 436.44
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect5" type="TextureRect" parent="CanvasLayer"]
+margin_left = 147.495
+margin_top = 587.458
+margin_right = 672.495
+margin_bottom = 877.458
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer"]
+margin_left = 577.941
+margin_top = -6.10352e-05
+margin_right = 2151.94
+margin_bottom = 318.0
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_top = -183.0
+margin_bottom = 183.0
+custom_constants/margin_left = 350
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/MarginContainer"]
+margin_left = 350.0
+margin_right = 1920.0
+margin_bottom = 366.0
+custom_constants/hseparation = 100
+columns = 2
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label2" type="Label" parent="CanvasLayer/MarginContainer/GridContainer"]
+margin_right = 779.0
+margin_bottom = 60.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.352941, 0.180392, 0.0823529, 1 )
+text = "ITEMS COLLECTED:"
+align = 2
+
+[node name="Items_Collected" type="Label" parent="CanvasLayer/MarginContainer/GridContainer"]
+margin_left = 879.0
+margin_right = 1570.0
+margin_bottom = 60.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.352941, 0.180392, 0.0823529, 1 )
+text = "10/10"
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/GridContainer"]
+margin_top = 64.0
+margin_right = 779.0
+margin_bottom = 124.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.352941, 0.180392, 0.0823529, 1 )
+text = "COVIDIOTS DEFEATED:"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Covidiots_Defeated" type="Label" parent="CanvasLayer/MarginContainer/GridContainer"]
+margin_left = 879.0
+margin_top = 64.0
+margin_right = 1570.0
+margin_bottom = 124.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.352941, 0.180392, 0.0823529, 1 )
+text = "10/10"
+
+[node name="Label6" type="Label" parent="CanvasLayer/MarginContainer/GridContainer"]
+margin_top = 128.0
+margin_right = 779.0
+margin_bottom = 188.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.352941, 0.180392, 0.0823529, 1 )
+text = "TIME BONUS:"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Time_Bonus" type="Label" parent="CanvasLayer/MarginContainer/GridContainer"]
+margin_left = 879.0
+margin_top = 128.0
+margin_right = 1570.0
+margin_bottom = 188.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.352941, 0.180392, 0.0823529, 1 )
+text = "120"
+
+[node name="Label8" type="Label" parent="CanvasLayer/MarginContainer/GridContainer"]
+margin_top = 192.0
+margin_right = 779.0
+margin_bottom = 252.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.352941, 0.180392, 0.0823529, 1 )
+text = "COIN BONUS:"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Coin_Bonus" type="Label" parent="CanvasLayer/MarginContainer/GridContainer"]
+margin_left = 879.0
+margin_top = 192.0
+margin_right = 1570.0
+margin_bottom = 252.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.352941, 0.180392, 0.0823529, 1 )
+text = "50"
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/GridContainer"]
+margin_top = 256.0
+margin_right = 779.0
+margin_bottom = 366.0
+custom_constants/margin_top = 50
+
+[node name="Label10" type="Label" parent="CanvasLayer/MarginContainer/GridContainer/MarginContainer"]
+margin_top = 50.0
+margin_right = 779.0
+margin_bottom = 110.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.352941, 0.180392, 0.0823529, 1 )
+text = "FINAL SCORE:"
+align = 2
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/MarginContainer/GridContainer"]
+margin_left = 879.0
+margin_top = 256.0
+margin_right = 1570.0
+margin_bottom = 366.0
+custom_constants/margin_top = 50
+
+[node name="Final_Score" type="Label" parent="CanvasLayer/MarginContainer/GridContainer/MarginContainer2"]
+margin_top = 50.0
+margin_right = 691.0
+margin_bottom = 110.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.352941, 0.180392, 0.0823529, 1 )
+text = "50"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_bottom = 200
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Input_Notice" type="Label" parent="CanvasLayer/MarginContainer2"]
+margin_top = 820.0
+margin_right = 1920.0
+margin_bottom = 880.0
+size_flags_horizontal = 3
+size_flags_vertical = 8
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "PRESS ANY KEY TO CONTINUE"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer3" type="MarginContainer" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 100
+custom_constants/margin_top = 120
+custom_constants/margin_left = 100
+custom_constants/margin_bottom = 200
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Game_Over_Title" type="Label" parent="CanvasLayer/MarginContainer3"]
+margin_left = 100.0
+margin_top = 120.0
+margin_right = 1820.0
+margin_bottom = 240.0
+size_flags_horizontal = 3
+size_flags_vertical = 0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "SCOREBOARD"
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Transition" parent="CanvasLayer/Control" instance=ExtResource( 7 )]
+is_blanked = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Wait_Input = SubResource( 3 )
+[connection signal="unblanked" from="CanvasLayer/Control/Transition" to="." method="_on_Transition_unblanked"]
