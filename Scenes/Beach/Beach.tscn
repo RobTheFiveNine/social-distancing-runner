@@ -381,6 +381,7 @@ volume_db = -10.0
 
 [node name="Smoke" parent="." instance=ExtResource( 17 )]
 position = Vector2( 450.393, 868.85 )
+z_index = 20
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 120.0
@@ -390,8 +391,8 @@ autostart = true
 [connection signal="ready_for_encounter" from="Player" to="CanvasLayer/Transition" method="blank"]
 [connection signal="encounter_finished" from="CanvasLayer/Encounter" to="." method="_on_encounter_finished"]
 [connection signal="encounter_setup" from="CanvasLayer/Encounter" to="CanvasLayer/Transition" method="unblank"]
-[connection signal="blanked" from="CanvasLayer/Transition" to="CanvasLayer/Encounter" method="_on_transition_blanked"]
 [connection signal="blanked" from="CanvasLayer/Transition" to="." method="_on_transition_blanked"]
-[connection signal="unblanked" from="CanvasLayer/Transition" to="CanvasLayer/Encounter" method="_on_transition_unblanked"]
+[connection signal="blanked" from="CanvasLayer/Transition" to="CanvasLayer/Encounter" method="_on_transition_blanked"]
 [connection signal="unblanked" from="CanvasLayer/Transition" to="." method="_on_transition_unblanked"]
+[connection signal="unblanked" from="CanvasLayer/Transition" to="CanvasLayer/Encounter" method="_on_transition_unblanked"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

@@ -7,6 +7,7 @@ export (int) var fall_strength = 900
 export (float) var hang_time = 0.5
 export (bool) var ignore_input = false
 export (int) var health = 3
+export (int) var limit_bottom = 2550
 
 signal ready_for_encounter(enemy)
 signal processed_encounter_result()
@@ -37,7 +38,14 @@ func _physics_process(delta):
 		handle_knock_back()
 		get_input(delta)	
 		move_and_slide(velocity, Vector2.UP)
+		
+		if position.y >= limit_bottom:
+			die()
 	
+func die():
+	ignore_input = true
+	emit_signal("hit", 0)
+
 func fall(play_anim = false):
 	falling = true
 	jumping = false

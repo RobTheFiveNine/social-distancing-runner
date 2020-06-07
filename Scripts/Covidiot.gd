@@ -9,6 +9,7 @@ export (int) var variation = 0
 export (int) var speed = 100
 export (bool) var pursuit = false
 export (bool) var ignore_physics = false
+export (int) var limit_bottom = 2550
 
 var velocity : Vector2
 var animation_player : AnimationPlayer
@@ -40,6 +41,9 @@ func _physics_process(delta):
 		animation_player.play("Neutral")
 		
 	move_and_slide(velocity)
+	
+	if position.y >= limit_bottom:
+		die()
 
 func die():
 	emit_signal("died", position)

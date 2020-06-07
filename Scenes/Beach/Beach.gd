@@ -56,6 +56,8 @@ func end_game():
 
 func _on_Player_hit(remaining_health):
 	if remaining_health == 0:
+		_on_enemy_died($Player.position)
+		$Player.visible = false
 		end_game()
 	else:
 		draw_remaining_hp(remaining_health)
