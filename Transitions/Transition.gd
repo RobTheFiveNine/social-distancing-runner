@@ -3,17 +3,28 @@ extends Node2D
 signal blanked(tag)
 signal unblanked(tag)
 
+export (bool) var is_blanked = false
+
 var _tag
+var animation_player : AnimationPlayer
 
 func _ready():
-	pass
+	animation_player = get_node("AnimationPlayer")
+	animation_player.play("Close")
+
+	if is_blanked:
+		animation_player.seek(0.5, true)
+	else:
+		animation_player.seek(0, true)
+
+	animation_player.stop(false)
 
 func unblank():
-	get_node("AnimationPlayer").play("Open")
+	animation_player.play("Open")
 	
 func blank(tag = {}):
 	_tag = tag
-	get_node("AnimationPlayer").play("Close")
+	animation_player.play("Close")
 
 func _on_animation_finished(anim_name):
 	if anim_name == "Close":
