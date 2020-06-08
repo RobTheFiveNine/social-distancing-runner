@@ -70,6 +70,8 @@ func _ready():
 	score_label = get_node("CanvasLayer/MarginContainer/GridContainer/ScoreLabel")
 	generate_covidiots()
 	
+	$AudioStreamPlayer.play()
+	
 func _process(_delta):
 	time_label.text = "TIME\n%.2f" % timer.time_left
 	score_label.text = "SCORE\n%d" % Globals.score

@@ -1,7 +1,8 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=32 format=2]
 
 [ext_resource path="res://Prefabs/Characters/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Transitions/BoxInAndOut.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Sprites/Background/Sign_Post.40pc.png" type="Texture" id=3]
 [ext_resource path="res://Scenes/Encounter/Encounter.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Beach/Beach.gd" type="Script" id=5]
 [ext_resource path="res://Sprites/Tiles/Sand_Tile.50pc.png" type="Texture" id=6]
@@ -336,7 +337,7 @@ collision_use_kinematic = true
 collision_layer = 2
 collision_mask = 5
 format = 1
-tile_data = PoolIntArray( 196607, 4, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 1, 0, 262143, 536870914, 0, 196608, 536870917, 0, 196609, 536870917, 0, 196610, 536870917, 0, 196611, 5, 0, 196612, 5, 0, 196613, 5, 0, 196614, 2, 0, 196616, 4, 0, 196617, 0, 0, 196618, 0, 0, 196619, 0, 0, 196620, 0, 0, 196621, 0, 0, 196622, 0, 0, 196623, 0, 0, 196624, 0, 0, 196625, 0, 0, 196626, 0, 0, 196627, 0, 0, 196628, 0, 0, 196629, 0, 0, 196630, 0, 0, 196631, 0, 0, 196632, 0, 0, 196633, 0, 0, 196634, 0, 0, 196635, 0, 0, 196636, 0, 0, 196637, 0, 0, 196638, 0, 0, 196639, 0, 0, 196640, 0, 0, 196641, 0, 0, 196642, 0, 0, 327679, 536870918, 0, 262144, 5, 0, 262145, 5, 0, 262146, 5, 0, 262147, 5, 0, 262148, 5, 0, 262149, 5, 0, 262150, 6, 0, 262152, 536870914, 0, 262153, 536870917, 0, 262154, 536870917, 0, 262155, 536870917, 0, 262156, 536870917, 0, 262157, 536870917, 0 )
+tile_data = PoolIntArray( 196607, 4, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 1, 0, 131085, 536870913, 0, 131086, 536870912, 0, 131087, 536870912, 0, 131088, 536870912, 0, 262143, 536870914, 0, 196608, 536870917, 0, 196609, 536870917, 0, 196610, 536870917, 0, 196611, 5, 0, 196612, 5, 0, 196613, 5, 0, 196614, 2, 0, 196616, 4, 0, 196617, 0, 0, 196618, 1, 0, 196621, 536870914, 0, 196622, 536870917, 0, 196623, 536870917, 0, 196624, 536870917, 0, 196632, 0, 0, 196633, 0, 0, 196634, 0, 0, 196635, 0, 0, 196636, 0, 0, 196637, 0, 0, 196638, 0, 0, 196639, 0, 0, 196640, 0, 0, 196641, 0, 0, 196642, 0, 0, 327679, 536870918, 0, 262144, 5, 0, 262145, 5, 0, 262146, 5, 0, 262147, 5, 0, 262148, 5, 0, 262149, 5, 0, 262150, 6, 0, 262152, 536870914, 0, 262153, 536870917, 0, 262154, 2, 0, 262157, 536870918, 0, 262158, 536870917, 0, 262159, 536870917, 0, 262160, 536870917, 0 )
 
 [node name="Platforms" type="TileMap" parent="."]
 position = Vector2( 0, -39.425 )
@@ -427,12 +428,18 @@ tag_to_load = "c2"
 
 [node name="SpawnPoint3" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
 position = Vector2( 2208.51, 399.688 )
+
+[node name="Sign_Post40pc" type="Sprite" parent="."]
+position = Vector2( 3350.3, 857.384 )
+scale = Vector2( 0.6, 0.6 )
+z_index = -1
+texture = ExtResource( 3 )
 [connection signal="hit" from="Player" to="." method="_on_Player_hit"]
 [connection signal="ready_for_encounter" from="Player" to="CanvasLayer/Transition" method="blank"]
 [connection signal="encounter_finished" from="CanvasLayer/Encounter" to="." method="_on_encounter_finished"]
 [connection signal="encounter_setup" from="CanvasLayer/Encounter" to="CanvasLayer/Transition" method="unblank"]
-[connection signal="blanked" from="CanvasLayer/Transition" to="CanvasLayer/Encounter" method="_on_transition_blanked"]
 [connection signal="blanked" from="CanvasLayer/Transition" to="." method="_on_transition_blanked"]
-[connection signal="unblanked" from="CanvasLayer/Transition" to="CanvasLayer/Encounter" method="_on_transition_unblanked"]
+[connection signal="blanked" from="CanvasLayer/Transition" to="CanvasLayer/Encounter" method="_on_transition_blanked"]
 [connection signal="unblanked" from="CanvasLayer/Transition" to="." method="_on_transition_unblanked"]
+[connection signal="unblanked" from="CanvasLayer/Transition" to="CanvasLayer/Encounter" method="_on_transition_unblanked"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
