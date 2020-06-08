@@ -19,6 +19,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Covidiot.gd"
 }, {
+"base": "KinematicBody2D",
+"class": "Player",
+"language": "GDScript",
+"path": "res://Prefabs/Characters/Player/Player.gd"
+}, {
+"base": "Node2D",
+"class": "SpawnPoint",
+"language": "GDScript",
+"path": "res://Prefabs/SpawnPoint/SpawnPoint.gd"
+}, {
 "base": "Node2D",
 "class": "Transition",
 "language": "GDScript",
@@ -27,6 +37,8 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Countdown": "",
 "Covidiot": "",
+"Player": "",
+"SpawnPoint": "",
 "Transition": ""
 }
 
@@ -39,6 +51,10 @@ config/icon="res://icon.png"
 [autoload]
 
 Globals="*res://Scripts/Globals.gd"
+
+[debug]
+
+gdscript/warnings/return_value_discarded=false
 
 [display]
 

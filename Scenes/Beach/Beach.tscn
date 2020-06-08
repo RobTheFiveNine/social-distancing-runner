@@ -2,7 +2,6 @@
 
 [ext_resource path="res://Prefabs/Characters/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Transitions/BoxInAndOut.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Prefabs/Characters/Covidiot_1/Covidiot_1.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Encounter/Encounter.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/Beach/Beach.gd" type="Script" id=5]
 [ext_resource path="res://Sprites/Tiles/Sand_Tile.50pc.png" type="Texture" id=6]
@@ -20,6 +19,7 @@
 [ext_resource path="res://Sprites/Items/Heart.10pc.png" type="Texture" id=18]
 [ext_resource path="res://Sprites/Background/Background-1.40pc.png" type="Texture" id=19]
 [ext_resource path="res://Sprites/Background/cloud_2.40pc.png" type="Texture" id=20]
+[ext_resource path="res://Prefabs/SpawnPoint/SpawnPoint.tscn" type="PackedScene" id=21]
 
 [sub_resource type="DynamicFontData" id=1]
 font_path = "res://Fonts/joystix.monospace.ttf"
@@ -166,11 +166,11 @@ points = PoolVector2Array( 128, 128, 0, 128, 0, 0, 128, 0 )
 0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 0/shape = SubResource( 7 )
 0/shape_one_way = true
-0/shape_one_way_margin = 5.0
+0/shape_one_way_margin = 10.0
 0/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": true,
-"one_way_margin": 5.0,
+"one_way_margin": 10.0,
 "shape": SubResource( 7 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
@@ -187,11 +187,11 @@ points = PoolVector2Array( 128, 128, 0, 128, 0, 0, 128, 0 )
 1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 1/shape = SubResource( 8 )
 1/shape_one_way = true
-1/shape_one_way_margin = 5.0
+1/shape_one_way_margin = 10.0
 1/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": true,
-"one_way_margin": 5.0,
+"one_way_margin": 10.0,
 "shape": SubResource( 8 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
@@ -208,11 +208,11 @@ points = PoolVector2Array( 128, 128, 0, 128, 0, 0, 128, 0 )
 2/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
 2/shape = SubResource( 9 )
 2/shape_one_way = true
-2/shape_one_way_margin = 5.0
+2/shape_one_way_margin = 10.0
 2/shapes = [ {
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": true,
-"one_way_margin": 5.0,
+"one_way_margin": 10.0,
 "shape": SubResource( 9 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
@@ -327,22 +327,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Covidiot_1" parent="." instance=ExtResource( 3 )]
-position = Vector2( 955.329, 838.474 )
-z_index = 1
-speed = 200
-
-[node name="Covidiot_2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 3030.75, 829.423 )
-variation = 1
-speed = 300
-pursuit = true
-
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 6 )
 cell_size = Vector2( 512, 512 )
 cell_quadrant_size = 64
 cell_custom_transform = Transform2D( 0, 0, 0, 0, 0, 0 )
+collision_use_kinematic = true
 collision_layer = 2
 collision_mask = 5
 format = 1
@@ -421,6 +411,22 @@ z_index = 20
 wait_time = 120.0
 one_shot = true
 autostart = true
+
+[node name="Enemy_Spawn_Points" type="Node2D" parent="."]
+
+[node name="SpawnPoint" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
+position = Vector2( 948.471, 815.325 )
+guaranteed_spawn = true
+tag_to_load = "c1v1"
+
+[node name="SpawnPoint2" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
+position = Vector2( 2538.86, 802.2 )
+guaranteed_spawn = true
+spawn_chance = 0.9
+tag_to_load = "c2"
+
+[node name="SpawnPoint3" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
+position = Vector2( 2208.51, 399.688 )
 [connection signal="hit" from="Player" to="." method="_on_Player_hit"]
 [connection signal="ready_for_encounter" from="Player" to="CanvasLayer/Transition" method="blank"]
 [connection signal="encounter_finished" from="CanvasLayer/Encounter" to="." method="_on_encounter_finished"]

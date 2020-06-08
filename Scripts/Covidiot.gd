@@ -6,7 +6,7 @@ signal found_player(enemy)
 signal died(death_position)
 
 export (int) var variation = 0
-export (int) var speed = 100
+export (int) var speed = 300
 export (bool) var pursuit = false
 export (bool) var ignore_physics = false
 export (int) var limit_bottom = 2550
