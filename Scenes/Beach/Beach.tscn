@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=31 format=2]
 
 [ext_resource path="res://Prefabs/Characters/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Transitions/BoxInAndOut.tscn" type="PackedScene" id=2]
@@ -18,6 +18,8 @@
 [ext_resource path="res://Music/Loyalty_Freak_Music_-_04_-_Cant_Stop_My_Feet_.ogg" type="AudioStream" id=16]
 [ext_resource path="res://Prefabs/Particles/Smoke.tscn" type="PackedScene" id=17]
 [ext_resource path="res://Sprites/Items/Heart.10pc.png" type="Texture" id=18]
+[ext_resource path="res://Sprites/Background/Background-1.40pc.png" type="Texture" id=19]
+[ext_resource path="res://Sprites/Background/cloud_2.40pc.png" type="Texture" id=20]
 
 [sub_resource type="DynamicFontData" id=1]
 font_path = "res://Fonts/joystix.monospace.ttf"
@@ -344,7 +346,7 @@ cell_custom_transform = Transform2D( 0, 0, 0, 0, 0, 0 )
 collision_layer = 2
 collision_mask = 5
 format = 1
-tile_data = PoolIntArray( 196607, 4, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 1, 0, 262143, 536870914, 0, 196608, 536870917, 0, 196609, 536870917, 0, 196610, 536870917, 0, 196611, 5, 0, 196612, 5, 0, 196613, 5, 0, 196614, 2, 0, 196616, 4, 0, 196617, 0, 0, 196618, 0, 0, 196619, 0, 0, 196620, 0, 0, 196621, 0, 0, 327679, 536870918, 0, 262144, 5, 0, 262145, 5, 0, 262146, 5, 0, 262147, 5, 0, 262148, 5, 0, 262149, 5, 0, 262150, 6, 0, 262152, 536870914, 0, 262153, 536870917, 0, 262154, 536870917, 0, 262155, 536870917, 0, 262156, 536870917, 0, 262157, 536870917, 0 )
+tile_data = PoolIntArray( 196607, 4, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 1, 0, 262143, 536870914, 0, 196608, 536870917, 0, 196609, 536870917, 0, 196610, 536870917, 0, 196611, 5, 0, 196612, 5, 0, 196613, 5, 0, 196614, 2, 0, 196616, 4, 0, 196617, 0, 0, 196618, 0, 0, 196619, 0, 0, 196620, 0, 0, 196621, 0, 0, 196622, 0, 0, 196623, 0, 0, 196624, 0, 0, 196625, 0, 0, 196626, 0, 0, 196627, 0, 0, 196628, 0, 0, 196629, 0, 0, 196630, 0, 0, 196631, 0, 0, 196632, 0, 0, 196633, 0, 0, 196634, 0, 0, 196635, 0, 0, 196636, 0, 0, 196637, 0, 0, 196638, 0, 0, 196639, 0, 0, 196640, 0, 0, 196641, 0, 0, 196642, 0, 0, 327679, 536870918, 0, 262144, 5, 0, 262145, 5, 0, 262146, 5, 0, 262147, 5, 0, 262148, 5, 0, 262149, 5, 0, 262150, 6, 0, 262152, 536870914, 0, 262153, 536870917, 0, 262154, 536870917, 0, 262155, 536870917, 0, 262156, 536870917, 0, 262157, 536870917, 0 )
 
 [node name="Platforms" type="TileMap" parent="."]
 position = Vector2( 0, -39.425 )
@@ -356,6 +358,7 @@ format = 1
 tile_data = PoolIntArray( 24, 536870912, 0, 25, 536870913, 0, 131092, 536870912, 0, 131093, 536870913, 0, 327688, 1, 0, 327689, 2, 0, 327690, 2, 0, 327691, 0, 0, 327695, 536870912, 0, 327696, 536870914, 0, 327697, 536870914, 0, 327698, 536870913, 0 )
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+scroll_ignore_camera_zoom = true
 
 [node name="ColorRect" type="ColorRect" parent="ParallaxBackground"]
 anchor_right = 1.0
@@ -366,12 +369,43 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.1, 0.5 )
+motion_mirroring = Vector2( 1920, 0 )
+
+[node name="Background-140pc" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
+position = Vector2( 666.157, -2.43404 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 19 )
+
+[node name="Background-140pc2" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
+position = Vector2( 1554.02, -90.5849 )
+scale = Vector2( 1.2, 1.2 )
+texture = ExtResource( 19 )
+
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
-motion_scale = Vector2( 0.5, 0.8 )
-motion_mirroring = Vector2( 2880, 0 )
+motion_scale = Vector2( 0.2, 0.8 )
+motion_mirroring = Vector2( 1920, 0 )
 
 [node name="cloud_140pc" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2( 1111.12, -14.2742 )
+position = Vector2( 1379.33, -151.983 )
+texture = ExtResource( 15 )
+
+[node name="cloud_140pc2" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2( 339.174, -39.5615 )
+texture = ExtResource( 15 )
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2( 0.5, 0.8 )
+motion_mirroring = Vector2( 1920, 0 )
+
+[node name="cloud_240pc" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
+position = Vector2( 1699.46, 121.371 )
+texture = ExtResource( 20 )
+
+[node name="cloud_140pc" type="Sprite" parent="ParallaxBackground/ParallaxLayer3/cloud_240pc"]
+position = Vector2( -872.033, -104.881 )
+scale = Vector2( 1.4, 1.4 )
 texture = ExtResource( 15 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
