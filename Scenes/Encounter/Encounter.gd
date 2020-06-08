@@ -137,14 +137,14 @@ func roll_new_encounter(enemy):
 	randomize()
 
 	actions = []
-	max_attempts = max(rand_range(1, 10), 3)
+	max_attempts = int(max(rand_range(1, 10), 3))
 	typos_made = 0
 	
 	seconds_to_complete = ceil(rand_range(3, 10))
 	timer.wait_time = seconds_to_complete
 	timer.one_shot = true
 
-	phrase_index = rand_range(0, len(phrases) - 1)
+	phrase_index = int(rand_range(0, len(phrases) - 1))
 	phrase = phrases[phrase_index]
 
 	next_letter = 0
