@@ -56,8 +56,6 @@ func fall(play_anim = false):
 	jumping = false
 	velocity.y = fall_strength
 	jump_delta = 0
-
-	print("start fall")
 	
 	if play_anim and knock_back_x == null:
 		play_animation("Jump")
@@ -90,7 +88,6 @@ func handle_vertical_velocity(delta):
 			falling = false
 			
 func play_animation(name):
-	print(name)
 	if animation_player.current_animation != name:
 		animation_player.play(name)
 

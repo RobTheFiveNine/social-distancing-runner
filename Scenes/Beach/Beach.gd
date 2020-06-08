@@ -9,12 +9,16 @@ var score_label : Label
 var timer : Timer
 var transition : Transition
 var player : Player
+var item_audio : AudioStreamPlayer
 
 const ENEMY_TYPES = {
 	c1v1 = preload("res://Prefabs/Characters/Covidiot_1/Covidiot_1.tscn"),
 	c1v2 = preload("res://Prefabs/Characters/Covidiot_1/Covidiot_1.tscn"),
 	c2 = preload("res://Prefabs/Characters/Covidiot_2/Covidiot_2.tscn")
 }
+
+const ITEM = preload("res://Prefabs/Item/Item.tscn")
+const ITEM_TYPES = ["energy", "time", "heart", "coin"]
 
 func draw_remaining_hp(hp):
 	for i in range(hp + 1, 4):
@@ -32,6 +36,25 @@ func end_game():
 	
 	yield(transition, "blanked")
 	return get_tree().change_scene(game_over_scene_path)
+
+func generate_items():
+	var spawns = $Item_Spawn_Points
+	for s in spawns.get_children():
+		if not s.roll_spawn():
+			continue
+
+		var tag = s.roll_tag(ITEM_TYPES)
+		var item = ITEM.instance()
+
+		item.set_type(tag)
+		item.position = s.position
+		item.connect("picked_up", self, "_on_item_picked_up")
+		
+		Globals.items_available += 1
+		add_child(item)
+
+
+	spawns.queue_free()
 
 func generate_covidiots():
 	var spawns = $Enemy_Spawn_Points
@@ -56,10 +79,14 @@ func generate_covidiots():
 		c.connect("died", self, "_on_enemy_died")
 		add_child(c)
 
+		Globals.covidiots_generated += 1
+
 	spawns.queue_free()
 
 func _ready():
 	randomize()
+
+	Globals.reset_stats()
 
 	player = get_node("Player")
 	get_node("CanvasLayer/Transition").visible = true
@@ -68,9 +95,12 @@ func _ready():
 	timer = get_node("Timer")
 	transition = get_node("CanvasLayer/Transition")
 	score_label = get_node("CanvasLayer/MarginContainer/GridContainer/ScoreLabel")
+	item_audio = get_node("ItemAudioPlayer")
+
 	generate_covidiots()
+	generate_items()
 	
-	$AudioStreamPlayer.play()
+	#$AudioStreamPlayer.play()
 	
 func _process(_delta):
 	time_label.text = "TIME\n%.2f" % timer.time_left
@@ -96,9 +126,13 @@ func _on_transition_blanked(tag):
 		get_node("CanvasLayer/MarginContainer").visible = false
 
 func _on_enemy_died(death_location):
+	spawn_smoke(death_location)
+	Globals.covidiots_defeated += 1
+
+func spawn_smoke(at_location):
 	smoke.position = Vector2(
-		death_location.x + 5.584,
-		death_location.y + 125.78
+		at_location.x + 5.584,
+		at_location.y + 125.78
 	)
 
 	smoke.restart()
@@ -109,7 +143,12 @@ func _on_Timer_timeout():
 func _on_Player_hit(remaining_health, player_position):
 	if remaining_health == 0:
 		Globals.died = true
-		_on_enemy_died(player_position)
+		spawn_smoke(player_position)
 		end_game()
 	else:
 		draw_remaining_hp(remaining_health)
+
+func _on_item_picked_up(item : Item):
+	Globals.items_collected += 1
+	item_audio.play()
+	item.queue_free()
