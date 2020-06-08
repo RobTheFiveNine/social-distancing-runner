@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+class_name Player
+
 export (int) var speed = 600
 export (int) var knock_back_strength = 1500
 export (int) var jump_strength = 1000
@@ -25,18 +27,19 @@ var knock_back_y = null
 var in_encounter_with : Covidiot
 var animation_player : AnimationPlayer
 var jump_audio : AudioStreamPlayer2D
+var floor_ray : RayCast2D
 
 func _ready():
 	jump_audio = get_node("JumpAudio")
 	animation_player = get_node("AnimationPlayer")
-	animation_player.play("Neutral")
-	connect_covidiot_events()
+	floor_ray = get_node("FloorRayCast")
+	play_animation("Neutral")
 	
 func _physics_process(delta):
 	if not ignore_input:
 		handle_vertical_velocity(delta)
 		handle_knock_back()
-		get_input(delta)	
+		get_input(delta)
 		move_and_slide(velocity, Vector2.UP)
 		
 		if position.y >= limit_bottom:
@@ -53,13 +56,18 @@ func fall(play_anim = false):
 	jumping = false
 	velocity.y = fall_strength
 	jump_delta = 0
+
+	print("start fall")
 	
 	if play_anim and knock_back_x == null:
-		animation_player.play("Jump")
+		play_animation("Jump")
 		animation_player.seek(0.5, true)
 	
 func handle_vertical_velocity(delta):
-	velocity.y = fall_strength
+	if !floor_ray.is_colliding():
+		velocity.y = fall_strength
+	else:
+		velocity.y = 0
 
 	if jumping:
 		velocity.y = jump_strength * -1
@@ -69,19 +77,20 @@ func handle_vertical_velocity(delta):
 		else:
 			jump_delta += delta
 			
-	if !jumping and !falling and !is_on_floor():
+	if !jumping and !falling and !floor_ray.is_colliding():
 		fall(true)
 
 	if falling:
-		if is_on_floor():
+		if floor_ray.is_colliding():
 			if knock_back_x == null:
 				if Input.is_action_pressed("move_right"):
-					animation_player.play("Walk_Right")
+					play_animation("Walk_Right")
 				else:
-					animation_player.play("Neutral")
+					play_animation("Neutral")
 			falling = false
 			
 func play_animation(name):
+	print(name)
 	if animation_player.current_animation != name:
 		animation_player.play(name)
 
@@ -110,7 +119,7 @@ func get_input(delta):
 
 		if Input.is_action_just_pressed("jump"):
 			jump_audio.play()
-			animation_player.play("Jump")
+			play_animation("Jump")
 			jumping = true
 			jump_delta = 0
 			velocity.y = jump_strength
@@ -123,7 +132,7 @@ func get_input(delta):
 		velocity.x = 0
 
 		if !falling and !jumping and animation_player.current_animation != 'Neutral':
-			animation_player.play("Neutral")
+			play_animation("Neutral")
 
 func _on_enemy_found_player(enemy : Covidiot):
 	in_encounter_with = enemy
@@ -144,15 +153,8 @@ func process_encounter_result(won):
 			die()
 		else:
 			get_node("Hit").play()
-			animation_player.play("Knock_Back")
+			play_animation("Knock_Back")
 			knock_back_x = position.x - 800
 			knock_back_y = position.y - 300
 		
 	in_encounter_with = null
-
-func connect_covidiot_events():
-	for c in get_parent().get_children():
-		if c is Covidiot:
-			c.player_path = get_path()
-			c.connect("found_player", self, "_on_enemy_found_player")
-			c.connect("died", get_parent(), "_on_enemy_died")

@@ -145,13 +145,13 @@ points = PoolVector2Array( 0, 160, 32, 64, 160, 0, 512, 0, 512, 512, 0, 512 )
 6/z_index = 0
 
 [sub_resource type="ConvexPolygonShape2D" id=7]
-points = PoolVector2Array( 0, 0, 80, 0, 104, 8, 120, 24, 128, 40, 128, 128, 0, 128 )
+points = PoolVector2Array( 0, 0, 64, 0, 88, 0, 112, 8, 120, 16, 128, 24, 0, 24 )
 
 [sub_resource type="ConvexPolygonShape2D" id=8]
-points = PoolVector2Array( 128, 0, 128, 128, 0, 128, 0, 16, 8, 8, 24, 0, 48, 0 )
+points = PoolVector2Array( 128, 24, 0, 24, 16, 8, 40, 0, 128, 0 )
 
 [sub_resource type="ConvexPolygonShape2D" id=9]
-points = PoolVector2Array( 128, 128, 0, 128, 0, 0, 128, 0 )
+points = PoolVector2Array( 128, 16, 0, 16, 0, 0, 128, 0 )
 
 [sub_resource type="TileSet" id=10]
 0/name = "Sand_Platform_Tile_Left.12.5pc.png 0"
