@@ -41,13 +41,18 @@ func _ready():
 	animation_player = get_node("AnimationPlayer")
 	floor_ray = get_node("FloorRayCast")
 	play_animation("Neutral")
+
+func is_on_ground_or_platform():
+	return is_on_floor() or floor_ray.is_colliding()
 	
 func _physics_process(delta):
 	if not ignore_input:
 		handle_vertical_velocity(delta)
 		handle_knock_back()
 		get_input(delta)
-		move_and_slide(velocity, Vector2.UP)
+
+		var snap = Vector2.DOWN * 20 if !jumping else Vector2.ZERO
+		move_and_slide_with_snap(velocity, snap, Vector2.UP)
 		
 		if position.y >= limit_bottom:
 			die()
@@ -69,7 +74,7 @@ func fall(play_anim = false):
 		animation_player.seek(0.5, true)
 	
 func handle_vertical_velocity(delta):
-	if !floor_ray.is_colliding():
+	if !is_on_ground_or_platform():
 		velocity.y = fall_strength
 	else:
 		velocity.y = 0
@@ -82,11 +87,11 @@ func handle_vertical_velocity(delta):
 		else:
 			jump_delta += delta
 			
-	if !jumping and !falling and !floor_ray.is_colliding():
+	if !jumping and !falling and !is_on_ground_or_platform():
 		fall(true)
 
 	if falling:
-		if floor_ray.is_colliding():
+		if is_on_ground_or_platform():
 			if knock_back_x == null:
 				if Input.is_action_pressed("move_right"):
 					play_animation("Walk_Right")
