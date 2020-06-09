@@ -449,7 +449,13 @@ tag_to_load = "energy"
 modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
 position = Vector2( 4635.08, 1391.3 )
 guaranteed_spawn = true
-tag_to_load = "energy"
+tag_to_load = "coin"
+
+[node name="SpawnPoint6" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 4805.88, 1393.85 )
+guaranteed_spawn = true
+tag_to_load = "time"
 
 [node name="ItemAudioPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 22 )
