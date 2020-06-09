@@ -42,26 +42,31 @@ func end_game():
 	yield(transition, "blanked")
 	return get_tree().change_scene(game_over_scene_path)
 
-func generate_items():
-	var spawns = $Item_Spawn_Points
-	for s in spawns.get_children():
-		if not s.roll_spawn():
-			continue
-
-		var tag = s.roll_tag(ITEM_TYPES)
+func generate_item(spawn_point : SpawnPoint) -> void:
+	if spawn_point.roll_spawn():
+		var tag = spawn_point.roll_tag(ITEM_TYPES)
 		var item = ITEM.instance()
 
 		item.set_type(tag)
-		item.position = s.position
+		item.position = spawn_point.position
 		item.connect("picked_up", self, "_on_item_picked_up")
 		
 		Globals.items_available += 1
-		add_child(item)
+		spawn_point.get_parent().add_child(item)
 
+	spawn_point.queue_free()
 
-	spawns.queue_free()
+func generate_items() -> void:
+	for spawn_point in $Item_Spawn_Points.get_children():
+		generate_item(spawn_point)
 
-func generate_covidiots():
+	for platform in $MovingPlatforms.get_children():
+		if platform.can_spawn_items:
+			generate_item(platform.get_item_spawn_point())
+
+	pass
+
+func generate_covidiots() -> void:
 	var spawns = $Enemy_Spawn_Points
 	for s in spawns.get_children():
 		if not s.roll_spawn():
