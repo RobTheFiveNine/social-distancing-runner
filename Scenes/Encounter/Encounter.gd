@@ -117,10 +117,6 @@ func finish(won):
 	emit_signal("encounter_finished", won)
 	
 func setup_enemy_sprite(enemy):
-	var current = get_node("Enemy")
-	if current:
-		current.queue_free()
-
 	var e : Covidiot = enemy.duplicate(DUPLICATE_USE_INSTANCING)
 	e.name = "Enemy"
 	e.collision_layer = 0
@@ -167,6 +163,8 @@ func _on_transition_blanked(tag):
 	if tag.next_scene == "encounter":
 		get_node("Countdown").reset()
 		roll_new_encounter(tag.enemy)
+	elif tag.next_scene == "beach":
+		get_node("Enemy").queue_free()
 
 func _on_transition_unblanked(tag):
 	if tag.next_scene == "encounter":
