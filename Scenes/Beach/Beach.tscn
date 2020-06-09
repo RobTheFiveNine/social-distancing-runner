@@ -441,9 +441,15 @@ texture = ExtResource( 3 )
 
 [node name="SpawnPoint4" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
 modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
-position = Vector2( 626.953, 799.545 )
+position = Vector2( 1388.34, 403.072 )
 guaranteed_spawn = true
-tag_to_load = "heart"
+tag_to_load = "energy"
+
+[node name="SpawnPoint5" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 4635.08, 1391.3 )
+guaranteed_spawn = true
+tag_to_load = "energy"
 
 [node name="ItemAudioPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 22 )

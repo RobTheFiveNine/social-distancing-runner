@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Prefabs/Characters/Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://SFX/Jump.wav" type="AudioStream" id=2]
@@ -853,6 +853,50 @@ tracks/20/keys = {
 "times": PoolRealArray( 0 )
 }
 
+[sub_resource type="Animation" id=6]
+resource_name = "Pulse"
+loop = true
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Sprites:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 0.92549, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5, 1 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Sprites:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 0.423529, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5, 1 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("Sprites:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 0.203922, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5, 1 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("Sprites:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5, 1 )
+}
+
 [node name="Player" type="KinematicBody2D"]
 collision_mask = 6
 script = ExtResource( 1 )
@@ -864,6 +908,7 @@ z_as_relative = false
 shape = SubResource( 1 )
 
 [node name="Sprites" type="Node2D" parent="."]
+modulate = Color( 0.999773, 0.998246, 0.997578, 1 )
 position = Vector2( 22.9116, 199.044 )
 scale = Vector2( 0.4, 0.4 )
 
@@ -945,3 +990,11 @@ position = Vector2( 15, 170 )
 enabled = true
 cast_to = Vector2( 0, 10 )
 collision_mask = 2
+
+[node name="EnergyBoostTimer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="EnergyBoostAnimation" type="AnimationPlayer" parent="."]
+anims/Pulse = SubResource( 6 )
+[connection signal="timeout" from="EnergyBoostTimer" to="." method="_on_EnergyBoostTimer_timeout"]

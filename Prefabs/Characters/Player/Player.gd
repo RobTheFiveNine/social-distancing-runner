@@ -12,14 +12,17 @@ export (int) var health = 3
 export (int) var limit_bottom = 2550
 
 signal ready_for_encounter(enemy)
-signal processed_encounter_result()
 signal hit(remaining_health, player_position)
 
+var initial_speed
+var initial_jump_strength
+var initial_fall_strength
 var jump_delta = 0
 var running = false
 var jumping = false
 var falling = false
 var velocity = Vector2()
+var energy_timer : Timer
 
 var knock_back_x = null
 var knock_back_y = null
@@ -30,6 +33,10 @@ var jump_audio : AudioStreamPlayer2D
 var floor_ray : RayCast2D
 
 func _ready():
+	initial_speed = speed
+	initial_fall_strength = fall_strength
+	initial_jump_strength = jump_strength
+	energy_timer = get_node("EnergyBoostTimer")
 	jump_audio = get_node("JumpAudio")
 	animation_player = get_node("AnimationPlayer")
 	floor_ray = get_node("FloorRayCast")
@@ -106,7 +113,7 @@ func handle_knock_back():
 		else:
 			velocity.y = knock_back_strength * -1
 
-func get_input(delta):
+func get_input(_delta):
 	if knock_back_x:
 		return
 
@@ -155,3 +162,19 @@ func process_encounter_result(won):
 			knock_back_y = position.y - 300
 		
 	in_encounter_with = null
+
+func use_energy_boost():
+	if energy_timer.is_stopped():
+		speed = speed * 1.8
+		jump_strength = jump_strength * 1.8
+		fall_strength = fall_strength * 1.8
+
+	$EnergyBoostTimer.start()
+	$EnergyBoostAnimation.play("Pulse")
+
+func _on_EnergyBoostTimer_timeout():
+	speed = initial_speed
+	jump_strength = initial_jump_strength
+	fall_strength = initial_fall_strength
+	$EnergyBoostAnimation.stop()
+	$Sprites.modulate = Color(1, 1, 1, 1)

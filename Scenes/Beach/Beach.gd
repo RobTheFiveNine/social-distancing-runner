@@ -20,11 +20,16 @@ const ENEMY_TYPES = {
 const ITEM = preload("res://Prefabs/Item/Item.tscn")
 const ITEM_TYPES = ["energy", "time", "heart", "coin"]
 
-func draw_remaining_hp(hp):
-	for i in range(hp + 1, 4):
-		get_node(
+func redraw_hp_icons():
+	for i in range(1, 4):
+		var icon = get_node(
 			"CanvasLayer/MarginContainer/GridContainer/HBoxContainer/HP%d" % i
-		).modulate = Color(1, 1, 1, 0.23)
+		)
+
+		if player.health < i:
+			icon.modulate = Color(1, 1, 1, 0.23)
+		else:
+			icon.modulate = Color(1, 1, 1, 1)
 
 func end_game():
 	$Timer.paused = true
@@ -108,6 +113,11 @@ func _process(_delta):
 
 func _on_encounter_finished(won):
 	last_encounter_won = won
+
+	if won:
+		Globals.covidiots_defeated += 1
+		Globals.recalculate_score()
+
 	transition.blank({
 		next_scene = "beach"
 	})
@@ -127,7 +137,6 @@ func _on_transition_blanked(tag):
 
 func _on_enemy_died(death_location):
 	spawn_smoke(death_location)
-	Globals.covidiots_defeated += 1
 
 func spawn_smoke(at_location):
 	smoke.position = Vector2(
@@ -141,14 +150,44 @@ func _on_Timer_timeout():
 	player.die()
 
 func _on_Player_hit(remaining_health, player_position):
+	redraw_hp_icons()
+
 	if remaining_health == 0:
 		Globals.died = true
 		spawn_smoke(player_position)
 		end_game()
-	else:
-		draw_remaining_hp(remaining_health)
 
-func _on_item_picked_up(item : Item):
+func _on_time_picked_up() -> void:
+	var new_time = timer.time_left + 20
+	timer.stop()
+	timer.wait_time = new_time
+	timer.start()
+
+func _on_energy_picked_up() -> void:
+	player.use_energy_boost()
+
+func _on_heart_picked_up() -> void:
+	if player.health < 3:
+		player.health += 1
+
+	redraw_hp_icons()
+
+func _on_coin_picked_up() -> void:
+	Globals.coin_value_collected += 10
+
+func _on_item_picked_up(item : Item) -> void:
+	var item_type = item.get_type()
+	
+	if item_type == "time":
+		_on_time_picked_up()
+	elif item_type == "energy":
+		_on_energy_picked_up()
+	elif item_type == "heart":
+		_on_heart_picked_up()
+	elif item_type == "coin":
+		_on_coin_picked_up()
+
 	Globals.items_collected += 1
+	Globals.recalculate_score()
 	item_audio.play()
 	item.queue_free()
