@@ -10,7 +10,9 @@ func _ready():
 	player = get_node("AnimationPlayer")
 
 func reset():
+	player.play("Pulse")
 	player.seek(0, true)
+	player.stop()
 
 func start():
 	player.play("Pulse")
