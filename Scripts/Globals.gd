@@ -13,8 +13,8 @@ export (bool) var died = false
 export (int) var score = 0
 
 func recalculate_score():
-	score = (Globals.covidiots_defeated * 10) * (Globals.covidiots_defeated / Globals.covidiots_generated)
-	score += (Globals.items_collected * 5) * (Globals.items_collected / Globals.items_available)
+	score = (Globals.covidiots_defeated * 10) * (Globals.covidiots_defeated / float(Globals.covidiots_generated))
+	score += (Globals.items_collected * 5) * (Globals.items_collected / float(Globals.items_available))
 	score += Globals.time_remaining + Globals.coin_value_collected
 
 func reset_stats():
