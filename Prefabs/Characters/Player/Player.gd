@@ -10,6 +10,8 @@ export (float) var hang_time = 0.5
 export (bool) var ignore_input = false
 export (int) var health = 3
 export (int) var limit_bottom = 2550
+export (bool) var instant_kill = false
+export (bool) var invincible = false
 
 signal ready_for_encounter(enemy)
 signal hit(remaining_health, player_position)
@@ -149,14 +151,20 @@ func _on_enemy_found_player(enemy : Covidiot):
 	if dead:
 		return
 
-	in_encounter_with = enemy
-	get_tree().paused = true
-	emit_signal("ready_for_encounter", {
-		next_scene = "encounter",
-		enemy = enemy
-	})
+	if instant_kill:
+		enemy.die()
+	else:
+		in_encounter_with = enemy
+		get_tree().paused = true
+		emit_signal("ready_for_encounter", {
+			next_scene = "encounter",
+			enemy = enemy
+		})
 
 func knock_back():
+	if invincible:
+		return
+
 	health = health - 1
 	emit_signal("hit", health, position)
 
