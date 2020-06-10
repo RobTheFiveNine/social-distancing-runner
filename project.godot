@@ -10,6 +10,11 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Node2D",
+"class": "Bird",
+"language": "GDScript",
+"path": "res://Prefabs/Characters/Bird/Scripts/Bird.gd"
+}, {
+"base": "Node2D",
 "class": "Countdown",
 "language": "GDScript",
 "path": "res://Prefabs/Countdown/Countdown.gd"
@@ -40,6 +45,7 @@ _global_script_classes=[ {
 "path": "res://Transitions/Transition.gd"
 } ]
 _global_script_class_icons={
+"Bird": "",
 "Countdown": "",
 "Covidiot": "",
 "Item": "",
@@ -100,6 +106,7 @@ move_left={
 2d_physics/layer_3="Actors"
 2d_physics/layer_4="Encounter_Zones"
 2d_physics/layer_5="Items"
+2d_physics/layer_6="Birds"
 
 [rendering]
 

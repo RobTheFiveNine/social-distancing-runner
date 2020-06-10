@@ -23,6 +23,7 @@ var jumping = false
 var falling = false
 var velocity = Vector2()
 var energy_timer : Timer
+var dead : bool = false
 
 var knock_back_x = null
 var knock_back_y = null
@@ -58,6 +59,7 @@ func _physics_process(delta):
 			die()
 	
 func die():
+	dead = true
 	collision_layer = 0
 	ignore_input = true
 	emit_signal("hit", 0, position)
@@ -144,6 +146,9 @@ func get_input(_delta):
 			play_animation("Neutral")
 
 func _on_enemy_found_player(enemy : Covidiot):
+	if dead:
+		return
+
 	in_encounter_with = enemy
 	get_tree().paused = true
 	emit_signal("ready_for_encounter", {
@@ -151,20 +156,23 @@ func _on_enemy_found_player(enemy : Covidiot):
 		enemy = enemy
 	})
 
+func knock_back():
+	health = health - 1
+	emit_signal("hit", health, position)
+
+	if health == 0:
+		die()
+	else:
+		get_node("Hit").play()
+		play_animation("Knock_Back")
+		knock_back_x = position.x - 800
+		knock_back_y = position.y - 300
+
 func process_encounter_result(won):
 	if won:
 		in_encounter_with.die()
 	else:
-		health = health - 1
-		emit_signal("hit", health, position)
-
-		if health == 0:
-			die()
-		else:
-			get_node("Hit").play()
-			play_animation("Knock_Back")
-			knock_back_x = position.x - 800
-			knock_back_y = position.y - 300
+		knock_back()
 		
 	in_encounter_with = null
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://Prefabs/Characters/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Transitions/BoxInAndOut.tscn" type="PackedScene" id=2]
@@ -8,6 +8,11 @@
 [ext_resource path="res://TileSets/Platforms.tres" type="TileSet" id=6]
 [ext_resource path="res://TileSets/Beach.tres" type="TileSet" id=7]
 [ext_resource path="res://Prefabs/Platforms/LinearPlatform/LinearPlatform.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Sprites/Background/tree-1.70pc.png" type="Texture" id=9]
+[ext_resource path="res://Sprites/Background/tree-2.70pc.png" type="Texture" id=10]
+[ext_resource path="res://Scenes/Beach/Trees.gd" type="Script" id=11]
+[ext_resource path="res://Prefabs/Characters/Bird/Bird.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Scenes/Beach/Scripts/BirdEncounter.gd" type="Script" id=13]
 [ext_resource path="res://Sprites/Background/cloud_1.40pc.png" type="Texture" id=15]
 [ext_resource path="res://Music/Loyalty_Freak_Music_-_04_-_Cant_Stop_My_Feet_.ogg" type="AudioStream" id=16]
 [ext_resource path="res://Prefabs/Particles/Smoke.tscn" type="PackedScene" id=17]
@@ -25,15 +30,18 @@ font_path = "res://Fonts/joystix.monospace.ttf"
 size = 35
 font_data = SubResource( 1 )
 
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 783.455, 561.692 )
+
 [node name="Beach" type="Node2D"]
 script = ExtResource( 5 )
 __meta__ = {
-"_edit_horizontal_guides_": [ 2557.37, 205.739 ],
-"_edit_vertical_guides_": [  ]
+"_edit_horizontal_guides_": [ 2557.37, 503.56 ],
+"_edit_vertical_guides_": [ 18081.6 ]
 }
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 12786.8, 254.131 )
+position = Vector2( 12773.1, 220.437 )
 z_index = 10
 collision_mask = 10
 
@@ -146,44 +154,62 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="Clouds_1" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 0.1, 0.5 )
 motion_mirroring = Vector2( 1920, 0 )
 
-[node name="Background-140pc" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
+[node name="Background-140pc" type="Sprite" parent="ParallaxBackground/Clouds_1"]
 position = Vector2( 666.157, -2.43404 )
 scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 19 )
 
-[node name="Background-140pc2" type="Sprite" parent="ParallaxBackground/ParallaxLayer2"]
+[node name="Background-140pc2" type="Sprite" parent="ParallaxBackground/Clouds_1"]
 position = Vector2( 1554.02, -90.5849 )
 scale = Vector2( 1.2, 1.2 )
 texture = ExtResource( 19 )
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="Clouds_2" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 0.2, 0.8 )
 motion_mirroring = Vector2( 1920, 0 )
 
-[node name="cloud_140pc" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+[node name="cloud_140pc" type="Sprite" parent="ParallaxBackground/Clouds_2"]
 position = Vector2( 1379.33, -151.983 )
 texture = ExtResource( 15 )
 
-[node name="cloud_140pc2" type="Sprite" parent="ParallaxBackground/ParallaxLayer"]
+[node name="cloud_140pc2" type="Sprite" parent="ParallaxBackground/Clouds_2"]
 position = Vector2( 339.174, -39.5615 )
 texture = ExtResource( 15 )
 
-[node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="Clouds_3" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2( 0.5, 0.8 )
 motion_mirroring = Vector2( 1920, 0 )
 
-[node name="cloud_240pc" type="Sprite" parent="ParallaxBackground/ParallaxLayer3"]
+[node name="cloud_240pc" type="Sprite" parent="ParallaxBackground/Clouds_3"]
 position = Vector2( 1699.46, 121.371 )
 texture = ExtResource( 20 )
 
-[node name="cloud_140pc" type="Sprite" parent="ParallaxBackground/ParallaxLayer3/cloud_240pc"]
+[node name="cloud_140pc" type="Sprite" parent="ParallaxBackground/Clouds_3/cloud_240pc"]
 position = Vector2( -872.033, -104.881 )
 scale = Vector2( 1.4, 1.4 )
 texture = ExtResource( 15 )
+
+[node name="Trees" type="ParallaxLayer" parent="ParallaxBackground"]
+visible = false
+motion_scale = Vector2( 0.7, 1 )
+script = ExtResource( 11 )
+
+[node name="tree-270pc" type="Sprite" parent="ParallaxBackground/Trees"]
+position = Vector2( 918.877, 519.696 )
+texture = ExtResource( 10 )
+
+[node name="Trees2" type="ParallaxLayer" parent="ParallaxBackground"]
+visible = false
+motion_scale = Vector2( 0.9, 1 )
+script = ExtResource( 11 )
+
+[node name="tree-170pc" type="Sprite" parent="ParallaxBackground/Trees2"]
+position = Vector2( 2198.07, 527.95 )
+texture = ExtResource( 9 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 pause_mode = 2
@@ -250,14 +276,17 @@ spawn_chance = 0.5
 [node name="SpawnPoint12" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
 position = Vector2( 14335.3, 268.438 )
 spawn_chance = 0.7
+tag_to_load = "c1v1"
 
 [node name="SpawnPoint13" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
 position = Vector2( 15112.7, 271.014 )
 spawn_chance = 0.2
+tag_to_load = "c1v1"
 
 [node name="SpawnPoint14" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
 position = Vector2( 13567.6, 264.425 )
 spawn_chance = 0.2
+tag_to_load = "c1v1"
 
 [node name="SpawnPoint15" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
 position = Vector2( 16384.4, 775.063 )
@@ -305,25 +334,21 @@ tag_to_load = "time"
 [node name="SpawnPoint11" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
 modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
 position = Vector2( 13567.3, 371.38 )
-spawn_chance = 0.3
 tag_to_load = "coin"
 
 [node name="SpawnPoint12" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
 modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
 position = Vector2( 14335.9, 371.38 )
-spawn_chance = 0.3
 tag_to_load = "coin"
 
 [node name="SpawnPoint13" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
 modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
 position = Vector2( 15111.5, 371.38 )
-spawn_chance = 0.3
 tag_to_load = "coin"
 
 [node name="SpawnPoint14" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
 modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
 position = Vector2( 15746.5, 631.722 )
-spawn_chance = 0.3
 
 [node name="ItemAudioPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 22 )
@@ -335,7 +360,6 @@ script = ExtResource( 23 )
 [node name="LinearPlatform" parent="MovingPlatforms" instance=ExtResource( 8 )]
 position = Vector2( 6146.41, 1834.35 )
 move_to = Vector2( 0, -1000 )
-item_spawn_chance = 0.1
 
 [node name="LinearPlatform2" parent="MovingPlatforms" instance=ExtResource( 8 )]
 position = Vector2( 12798.2, -300 )
@@ -343,6 +367,7 @@ move_to = Vector2( 0, 440 )
 item_spawn_chance = 0.3
 
 [node name="BackgroundSprites" type="Node2D" parent="."]
+z_index = -5
 
 [node name="Sign_Post40pc" type="Sprite" parent="BackgroundSprites"]
 position = Vector2( 3350.3, 857.384 )
@@ -358,6 +383,30 @@ texture = ExtResource( 3 )
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="tree-270pc" type="Sprite" parent="BackgroundSprites"]
+position = Vector2( 4879.03, 1016.78 )
+texture = ExtResource( 10 )
+
+[node name="tree-170pc" type="Sprite" parent="BackgroundSprites"]
+position = Vector2( 2917.4, 515.754 )
+texture = ExtResource( 9 )
+
+[node name="tree-170pc2" type="Sprite" parent="BackgroundSprites"]
+position = Vector2( 7214.76, 519.413 )
+texture = ExtResource( 9 )
+
+[node name="tree-270pc2" type="Sprite" parent="BackgroundSprites"]
+position = Vector2( 1641.65, 504.657 )
+texture = ExtResource( 10 )
+
+[node name="tree-270pc3" type="Sprite" parent="BackgroundSprites"]
+position = Vector2( 8148.34, 514.447 )
+texture = ExtResource( 10 )
+
+[node name="tree-270pc4" type="Sprite" parent="BackgroundSprites"]
+position = Vector2( 9719.86, 1531.31 )
+texture = ExtResource( 10 )
 
 [node name="Platforms" type="TileMap" parent="."]
 position = Vector2( 0, -39.425 )
@@ -378,6 +427,44 @@ collision_layer = 2
 collision_mask = 5
 format = 1
 tile_data = PoolIntArray( 196607, 4, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 1, 0, 131085, 536870913, 0, 131086, 536870912, 0, 131087, 536870912, 0, 131088, 1, 0, 262143, 536870914, 0, 196608, 536870917, 0, 196609, 536870917, 0, 196610, 536870917, 0, 196611, 5, 0, 196612, 5, 0, 196613, 5, 0, 196614, 2, 0, 196616, 4, 0, 196617, 0, 0, 196618, 1, 0, 196621, 536870914, 0, 196622, 536870917, 0, 196623, 536870917, 0, 196624, 2, 0, 327679, 536870918, 0, 262144, 5, 0, 262145, 5, 0, 262146, 5, 0, 262147, 5, 0, 262148, 5, 0, 262149, 5, 0, 262150, 6, 0, 262152, 536870914, 0, 262153, 536870917, 0, 262154, 2, 0, 262157, 536870918, 0, 262158, 536870917, 0, 262159, 536870917, 0, 262160, 6, 0, 262162, 4, 0, 262163, 1, 0, 262165, 4, 0, 262166, 1, 0, 262168, 4, 0, 262169, 1, 0 )
+
+[node name="BirdEncounter1" type="Node2D" parent="."]
+script = ExtResource( 13 )
+
+[node name="ActivationArea" type="Area2D" parent="BirdEncounter1"]
+position = Vector2( 15000, 0 )
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BirdEncounter1/ActivationArea"]
+position = Vector2( -791.757, 50.8136 )
+shape = SubResource( 3 )
+
+[node name="Birds" type="Node2D" parent="BirdEncounter1"]
+
+[node name="Bird" parent="BirdEncounter1/Birds" instance=ExtResource( 12 )]
+position = Vector2( 18082.1, 434.867 )
+speed = 1000
+distance_to_travel = Vector2( -15000, 0 )
+
+[node name="Bird2" parent="BirdEncounter1/Birds" instance=ExtResource( 12 )]
+position = Vector2( 18801.2, 84.6833 )
+speed = 1000
+distance_to_travel = Vector2( -15000, 0 )
+
+[node name="Bird3" parent="BirdEncounter1/Birds" instance=ExtResource( 12 )]
+position = Vector2( 19531.8, 456.638 )
+speed = 1000
+distance_to_travel = Vector2( -15000, 0 )
+
+[node name="Bird4" parent="BirdEncounter1/Birds" instance=ExtResource( 12 )]
+position = Vector2( 20183.2, 54.7075 )
+speed = 1000
+distance_to_travel = Vector2( -15000, 0 )
+
+[node name="Bird5" parent="BirdEncounter1/Birds" instance=ExtResource( 12 )]
+position = Vector2( 20868.7, 300.094 )
+speed = 1000
+distance_to_travel = Vector2( -15000, 0 )
 [connection signal="hit" from="Player" to="." method="_on_Player_hit"]
 [connection signal="ready_for_encounter" from="Player" to="CanvasLayer/Transition" method="blank"]
 [connection signal="encounter_finished" from="CanvasLayer/Encounter" to="." method="_on_encounter_finished"]
@@ -387,3 +474,4 @@ tile_data = PoolIntArray( 196607, 4, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0
 [connection signal="unblanked" from="CanvasLayer/Transition" to="." method="_on_transition_unblanked"]
 [connection signal="unblanked" from="CanvasLayer/Transition" to="CanvasLayer/Encounter" method="_on_transition_unblanked"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="body_entered" from="BirdEncounter1/ActivationArea" to="BirdEncounter1" method="_on_ActivationArea_body_entered"]
