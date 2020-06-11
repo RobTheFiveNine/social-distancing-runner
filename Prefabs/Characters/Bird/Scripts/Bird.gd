@@ -11,6 +11,7 @@ onready var animation : AnimationPlayer = $AnimationPlayer
 
 func _ready():
 	setup_tween()
+	visible = false
 
 func _on_Area2D_body_entered(body : Player):
 	body.knock_back(true)
@@ -29,6 +30,7 @@ func setup_tween() -> void:
 	)
 
 func wake_up() -> void:
+	visible = true
 	animation.play("Fly")
 	tween.start()
 
