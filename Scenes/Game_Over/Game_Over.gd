@@ -19,7 +19,7 @@ func _ready():
 	if Globals.died:
 		$CanvasLayer/MarginContainer3/Game_Over_Title.text = "GAME OVER"
 	else:
-		$CanvasLayer/MarginContainer3/Game_Over_Title.text = "SCOREBOARD"
+		$CanvasLayer/MarginContainer3/Game_Over_Title.text = "YOU ESCAPED!"
 	
 	$AnimationPlayer.play("Wait_Input")
 	$CanvasLayer/Control/Transition.unblank()
