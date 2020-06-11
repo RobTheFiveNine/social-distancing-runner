@@ -12,6 +12,7 @@ export (int) var health = 3
 export (int) var limit_bottom = 2550
 export (bool) var instant_kill = false
 export (bool) var invincible = false
+export (bool) var prevent_jumping = false
 
 signal ready_for_encounter(enemy)
 signal hit(remaining_health, player_position)
@@ -133,11 +134,12 @@ func get_input(_delta):
 			play_animation("Walk_Right")
 
 		if Input.is_action_just_pressed("jump"):
-			jump_audio.play()
-			play_animation("Jump")
-			jumping = true
-			jump_delta = 0
-			velocity.y = jump_strength
+			if not prevent_jumping:
+				jump_audio.play()
+				play_animation("Jump")
+				jumping = true
+				jump_delta = 0
+				velocity.y = jump_strength
 
 	if Input.is_action_pressed("move_right"):
 		velocity.x = speed
@@ -190,9 +192,9 @@ func process_encounter_result(won):
 
 func use_energy_boost():
 	if energy_timer.is_stopped():
-		speed = speed * 1.8
-		jump_strength = jump_strength * 1.8
-		fall_strength = fall_strength * 1.8
+		speed = initial_speed * 1.6
+		jump_strength = jump_strength * 1
+		fall_strength = fall_strength * 1
 
 	$EnergyBoostTimer.start()
 	$EnergyBoostAnimation.play("Pulse")

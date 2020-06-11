@@ -33,13 +33,30 @@ func redraw_hp_icons():
 		else:
 			icon.modulate = Color(1, 1, 1, 1)
 
-func end_game():
-	$Timer.paused = true
-	yield(get_tree().create_timer(2.0), "timeout")
+func end_game(pause_before_transition : bool = true):
+	timer.paused = true
+
+	if not Globals.died:
+		Globals.time_remaining = timer.time_left
+
+	var audio = $AudioStreamPlayer
+	
+	var audio_tween = Tween.new()
+	add_child(audio_tween)
+	audio_tween.interpolate_property(
+		audio, "volume_db",
+		audio.volume_db, -50, 1.5,
+		Tween.TRANS_LINEAR, Tween.EASE_IN
+	)
+
+	if pause_before_transition:
+		yield(get_tree().create_timer(2.0), "timeout")
 	
 	transition.blank({
 		next_scene = "game_over"
 	})
+
+	audio_tween.start()
 	
 	yield(transition, "blanked")
 	return get_tree().change_scene(game_over_scene_path)
@@ -121,7 +138,7 @@ func _ready():
 
 	transition.unblank()
 	
-	#$AudioStreamPlayer.play()
+	$AudioStreamPlayer.play()
 	
 func _process(_delta):
 	if started:
@@ -144,7 +161,7 @@ func _on_encounter_finished(won):
 
 func _on_transition_unblanked(tag):
 	if !tag:
-		return start_game()
+		return $CanvasLayer/Countdown.start()
 
 	if tag.next_scene == "beach":
 		get_tree().paused = false
@@ -206,3 +223,9 @@ func _on_item_picked_up(item : Item) -> void:
 	Globals.recalculate_score()
 	item_audio.play()
 	item.queue_free()
+
+func _on_EndZone_entered_end_zone():
+	timer.paused = true
+
+func _on_EndZone_ready_to_finish():
+	end_game(false)

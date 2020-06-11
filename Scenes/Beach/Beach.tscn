@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://Prefabs/Characters/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Transitions/BoxInAndOut.tscn" type="PackedScene" id=2]
@@ -25,6 +25,8 @@
 [ext_resource path="res://Scripts/PolyphonyAudioPlayer.gd" type="Script" id=23]
 [ext_resource path="res://Sprites/Background/Water-1.png" type="Texture" id=24]
 [ext_resource path="res://Sprites/Background/Water-2.png" type="Texture" id=25]
+[ext_resource path="res://Sprites/Background/Boat.40pc.png" type="Texture" id=26]
+[ext_resource path="res://Prefabs/Countdown/Countdown.tscn" type="PackedScene" id=27]
 
 [sub_resource type="DynamicFontData" id=1]
 font_path = "res://Fonts/joystix.monospace.ttf"
@@ -33,28 +35,53 @@ font_path = "res://Fonts/joystix.monospace.ttf"
 size = 35
 font_data = SubResource( 1 )
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 645.772, 253.567 )
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 307.008, 488.746 )
 
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 705.699, 116.328 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 555.469, 116.328 )
+
 [sub_resource type="RectangleShape2D" id=7]
-extents = Vector2( 705.699, 116.328 )
-
-[sub_resource type="RectangleShape2D" id=8]
-extents = Vector2( 705.699, 116.328 )
-
-[sub_resource type="RectangleShape2D" id=9]
 extents = Vector2( 177.508, 652.03 )
 
-[sub_resource type="RectangleShape2D" id=10]
+[sub_resource type="RectangleShape2D" id=8]
 extents = Vector2( 876.625, 652.03 )
 
-[sub_resource type="RectangleShape2D" id=11]
-extents = Vector2( 100, 100 )
+[sub_resource type="Animation" id=9]
+resource_name = "Float"
+length = 2.0
+loop = true
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Boat:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"points": PoolRealArray(  ),
+"times": PoolRealArray(  )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Boat:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( -40.5671, -0.25, 0, 0.25, 0, -30.567, -0.25, 0, 0.25, 0, -40.567, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1, 2 )
+}
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 159.724, 24.089 )
+
+[sub_resource type="Animation" id=11]
 resource_name = "Water"
 length = 2.0
 loop = true
@@ -103,20 +130,19 @@ tracks/3/keys = {
 script = ExtResource( 5 )
 __meta__ = {
 "_edit_horizontal_guides_": [ 2557.37, 503.56 ],
-"_edit_vertical_guides_": [ 18081.6 ]
+"_edit_vertical_guides_": [ 18081.6, 53943.3 ]
 }
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 51543.5, 1883.81 )
+position = Vector2( 59.407, 849.187 )
 z_index = 10
 collision_mask = 10
-instant_kill = true
-invincible = true
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position = Vector2( 611.065, -276.523 )
 current = true
 zoom = Vector2( 1.4, 1.4 )
+limit_right = 53940
 limit_bottom = 2550
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
@@ -211,6 +237,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Countdown" parent="CanvasLayer" instance=ExtResource( 27 )]
+
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 scroll_ignore_camera_zoom = true
 
@@ -290,7 +318,7 @@ position = Vector2( 450.393, 868.85 )
 z_index = 20
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 120.0
+wait_time = 180.0
 one_shot = true
 
 [node name="Enemy_Spawn_Points" type="Node2D" parent="."]
@@ -314,19 +342,12 @@ spawn_chance = 0.5
 position = Vector2( 4931.25, 1346 )
 guaranteed_spawn = true
 
-[node name="SpawnPoint5" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
-position = Vector2( 7228.69, 822.348 )
-
 [node name="SpawnPoint6" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
 position = Vector2( 7412.5, 817.631 )
 guaranteed_spawn = true
 
 [node name="SpawnPoint7" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
 position = Vector2( 8012.79, 817.514 )
-
-[node name="SpawnPoint8" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
-position = Vector2( 8461.41, 819.815 )
-spawn_chance = 0.7
 
 [node name="SpawnPoint9" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
 position = Vector2( 9737.94, 1832.24 )
@@ -381,16 +402,32 @@ spawn_chance = 0.6
 
 [node name="SpawnPoint21" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
 position = Vector2( 34308.5, -1646 )
-spawn_chance = 0.2
+spawn_chance = 0.1
 tag_to_load = "c1v1"
 
 [node name="SpawnPoint26" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
 position = Vector2( 35587.5, -1646 )
-spawn_chance = 0.2
+spawn_chance = 0.1
 tag_to_load = "c1v1"
 
 [node name="SpawnPoint28" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
 position = Vector2( 42923.1, 314.214 )
+spawn_chance = 0.4
+
+[node name="SpawnPoint30" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
+position = Vector2( 47019.1, 790.683 )
+guaranteed_spawn = true
+spawn_chance = 0.4
+tag_to_load = "c2"
+
+[node name="SpawnPoint32" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
+position = Vector2( 47660.8, 802.211 )
+spawn_chance = 0.6
+tag_to_load = "c2"
+
+[node name="SpawnPoint31" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
+position = Vector2( 49397.6, 1328.63 )
+guaranteed_spawn = true
 spawn_chance = 0.4
 
 [node name="SpawnPoint29" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
@@ -400,27 +437,27 @@ spawn_chance = 0.4
 
 [node name="SpawnPoint27" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
 position = Vector2( 35587.5, -2154.7 )
-spawn_chance = 0.2
+spawn_chance = 0.1
 tag_to_load = "c1v1"
 
 [node name="SpawnPoint22" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
 position = Vector2( 34308.5, -2154.7 )
-spawn_chance = 0.2
+spawn_chance = 0.1
 tag_to_load = "c1v1"
 
 [node name="SpawnPoint23" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
 position = Vector2( 34948, -2416.32 )
-spawn_chance = 0.2
+spawn_chance = 0.1
 tag_to_load = "c1v1"
 
 [node name="SpawnPoint25" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
 position = Vector2( 34948, -1384.38 )
-spawn_chance = 0.2
+spawn_chance = 0.1
 tag_to_load = "c1v1"
 
 [node name="SpawnPoint24" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
 position = Vector2( 34948, -1897.23 )
-spawn_chance = 0.2
+spawn_chance = 0.1
 tag_to_load = "c1v1"
 
 [node name="Item_Spawn_Points" type="Node2D" parent="."]
@@ -497,13 +534,6 @@ guaranteed_spawn = true
 spawn_chance = 0.7
 tag_to_load = "coin"
 
-[node name="SpawnPoint35" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
-modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
-position = Vector2( 10499.8, 1868.96 )
-guaranteed_spawn = true
-spawn_chance = 0.7
-tag_to_load = "coin"
-
 [node name="SpawnPoint36" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
 modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
 position = Vector2( 8752.38, 653.008 )
@@ -535,6 +565,13 @@ tag_to_load = "coin"
 [node name="SpawnPoint41" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
 modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
 position = Vector2( 9314.48, 1021.01 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint82" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 10504.6, 1648.36 )
 guaranteed_spawn = true
 spawn_chance = 0.7
 tag_to_load = "coin"
@@ -616,10 +653,46 @@ guaranteed_spawn = true
 spawn_chance = 0.4
 tag_to_load = "energy"
 
+[node name="SpawnPoint77" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 25097.5, 1779.96 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint78" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 26881.9, 1651.75 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint79" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 25880.2, 1734.05 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint80" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 26386.6, 1734.05 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint81" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 26139.2, 1734.05 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
 [node name="SpawnPoint19" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
 modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
 position = Vector2( 26143.6, 1950.14 )
 spawn_chance = 0.7
+tag_to_load = "heart"
 
 [node name="SpawnPoint20" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
 modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
@@ -637,7 +710,7 @@ tag_to_load = "time"
 
 [node name="SpawnPoint22" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
 modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
-position = Vector2( 31090.1, 384.643 )
+position = Vector2( 31024.1, 384.643 )
 guaranteed_spawn = true
 spawn_chance = 0.7
 tag_to_load = "coin"
@@ -651,7 +724,7 @@ tag_to_load = "coin"
 
 [node name="SpawnPoint24" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
 modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
-position = Vector2( 31604.1, 384.643 )
+position = Vector2( 31654.8, 384.643 )
 guaranteed_spawn = true
 spawn_chance = 0.7
 tag_to_load = "coin"
@@ -665,7 +738,7 @@ tag_to_load = "time"
 
 [node name="SpawnPoint25" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
 modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
-position = Vector2( 31858.9, 384.643 )
+position = Vector2( 31963.4, 384.643 )
 guaranteed_spawn = true
 spawn_chance = 0.7
 tag_to_load = "coin"
@@ -761,6 +834,125 @@ guaranteed_spawn = true
 spawn_chance = 0.7
 tag_to_load = "coin"
 
+[node name="SpawnPoint72" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 43336, 8.6918 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "time"
+
+[node name="SpawnPoint60" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 44606.7, 109.653 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint61" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 44781.5, 24.414 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint62" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 44936.7, 155.551 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint63" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 45094.1, 312.915 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint67" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 48057.6, 656.42 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint66" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 48232.4, 571.181 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint65" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 48387.6, 702.318 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint64" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 48545, 859.682 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint71" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 50137.1, 1194.22 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint70" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 50311.9, 1108.98 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint69" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 50467.1, 1240.12 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint68" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 50624.5, 1397.49 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint76" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 3517.34, 719.229 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint75" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 3692.2, 633.99 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint74" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 3847.38, 765.127 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint73" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 4004.74, 922.491 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
 [node name="SpawnPoint46" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
 modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
 position = Vector2( 35588.5, -1547.02 )
@@ -808,7 +1000,8 @@ item_spawn_chance = 0.3
 [node name="LinearPlatform3" parent="MovingPlatforms" instance=ExtResource( 8 )]
 position = Vector2( 16866.5, 863.617 )
 move_to = Vector2( 800, 0 )
-item_spawn_chance = 0.3
+item_spawn_chance = 1.0
+item_type_to_load = "heart"
 
 [node name="LinearPlatform4" parent="MovingPlatforms" instance=ExtResource( 8 )]
 position = Vector2( 18866.5, 863.617 )
@@ -843,6 +1036,22 @@ move_to = Vector2( 0, 830 )
 item_spawn_chance = 0.3
 item_type_to_load = "coin"
 
+[node name="LinearPlatform14" parent="MovingPlatforms" instance=ExtResource( 8 )]
+position = Vector2( 36065.8, -1383 )
+move_to = Vector2( 600, 0 )
+item_spawn_chance = 0.3
+
+[node name="LinearPlatform16" parent="MovingPlatforms" instance=ExtResource( 8 )]
+position = Vector2( 37919.3, -1184.77 )
+move_to = Vector2( 600, 0 )
+item_spawn_chance = 0.3
+
+[node name="LinearPlatform15" parent="MovingPlatforms" instance=ExtResource( 8 )]
+position = Vector2( 37592.7, -1383 )
+move_to = Vector2( -600, 0 )
+speed = 600.0
+item_spawn_chance = 0.3
+
 [node name="LinearPlatform10" parent="MovingPlatforms" instance=ExtResource( 8 )]
 position = Vector2( 30819, 738.316 )
 move_to = Vector2( 830, 0 )
@@ -854,7 +1063,6 @@ position = Vector2( 32860.5, 738.316 )
 idle_duration = 0.3
 move_to = Vector2( 1000, -1000 )
 speed = 900.0
-item_spawn_chance = 0.1
 item_type_to_load = "time"
 
 [node name="LinearPlatform12" parent="MovingPlatforms" instance=ExtResource( 8 )]
@@ -873,37 +1081,12 @@ speed = 900.0
 can_spawn_items = false
 item_spawn_chance = 0.15
 
-[node name="LinearPlatform15" parent="MovingPlatforms" instance=ExtResource( 8 )]
-position = Vector2( 36065.8, -1303.91 )
-idle_duration = 0.6
-move_to = Vector2( 600, 0 )
-speed = 900.0
-can_spawn_items = false
-item_spawn_chance = 0.15
-
-[node name="LinearPlatform17" parent="MovingPlatforms" instance=ExtResource( 8 )]
-position = Vector2( 37919.3, -1184.77 )
-idle_duration = 0.6
-move_to = Vector2( 600, 0 )
-speed = 900.0
-can_spawn_items = false
-item_spawn_chance = 0.15
-
 [node name="LinearPlatform18" parent="MovingPlatforms" instance=ExtResource( 8 )]
 position = Vector2( 40797.1, -477.137 )
-idle_duration = 1.0
 move_to = Vector2( 1000, 1000 )
 speed = 900.0
 can_spawn_items = false
 item_spawn_chance = 0.0
-
-[node name="LinearPlatform16" parent="MovingPlatforms" instance=ExtResource( 8 )]
-position = Vector2( 37592.7, -1303.91 )
-idle_duration = 0.6
-move_to = Vector2( -600, 0 )
-speed = 900.0
-can_spawn_items = false
-item_spawn_chance = 0.15
 
 [node name="BackgroundSprites" type="Node2D" parent="."]
 z_index = -5
@@ -967,6 +1150,9 @@ texture = ExtResource( 9 )
 [node name="tree-270pc6" type="Sprite" parent="BackgroundSprites"]
 position = Vector2( 26125.5, 1530.42 )
 texture = ExtResource( 10 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="tree-170pc5" type="Sprite" parent="BackgroundSprites"]
 position = Vector2( 27943.9, 1033.16 )
@@ -1011,6 +1197,23 @@ position = Vector2( 47852.7, 860.46 )
 scale = Vector2( 0.6, 0.6 )
 texture = ExtResource( 3 )
 
+[node name="Sign_Post40pc6" type="Sprite" parent="BackgroundSprites"]
+position = Vector2( 49960.1, 1394.19 )
+scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 3 )
+
+[node name="tree-270pc10" type="Sprite" parent="BackgroundSprites"]
+position = Vector2( 46054, 520.958 )
+texture = ExtResource( 10 )
+
+[node name="tree-170pc8" type="Sprite" parent="BackgroundSprites"]
+position = Vector2( 49428.8, 1037.33 )
+texture = ExtResource( 9 )
+
+[node name="tree-270pc11" type="Sprite" parent="BackgroundSprites"]
+position = Vector2( 51108.2, 1551.54 )
+texture = ExtResource( 10 )
+
 [node name="Platforms" type="TileMap" parent="."]
 position = Vector2( 0, -39.425 )
 tile_set = ExtResource( 6 )
@@ -1018,7 +1221,7 @@ cell_size = Vector2( 128, 128 )
 collision_layer = 2
 collision_mask = 5
 format = 1
-tile_data = PoolIntArray( -1113840, 1, 0, -1113839, 0, 0, -982773, 1, 0, -982772, 0, 0, -982763, 1, 0, -982762, 0, 0, -851696, 1, 0, -851695, 0, 0, -720629, 1, 0, -720628, 0, 0, -720619, 1, 0, -720618, 0, 0, -589552, 1, 0, -589551, 0, 0, -523982, 1, 0, -523981, 2, 0, -523980, 0, 0, -392906, 1, 0, -392905, 2, 0, -392904, 0, 0, -261830, 1, 0, -261829, 2, 0, -261828, 0, 0, 24, 536870912, 0, 25, 536870913, 0, 131092, 536870912, 0, 131093, 536870913, 0, 262243, 1, 0, 262244, 0, 0, 262249, 1, 0, 262250, 0, 0, 262255, 1, 0, 262256, 0, 0, 262261, 1, 0, 262262, 0, 0, 327688, 1, 0, 327689, 2, 0, 327690, 2, 0, 327691, 0, 0, 327695, 536870912, 0, 327696, 536870914, 0, 327697, 536870914, 0, 327698, 536870913, 0, 393338, 1, 0, 393339, 0, 0, 393438, 1, 0, 393439, 2, 0, 393440, 0, 0, 458851, 1, 0, 458852, 0, 0, 459005, 1, 0, 459006, 0, 0, 524415, 1, 0, 524416, 0, 0, 655458, 1, 0, 655459, 2, 0, 655460, 2, 0, 655461, 0, 0, 852065, 1, 0, 852066, 2, 0, 852067, 2, 0, 852068, 2, 0, 852069, 2, 0, 852070, 0, 0, 852144, 1, 0, 852145, 2, 0, 852146, 0, 0, 852150, 1, 0, 852151, 2, 0, 852152, 0, 0, 917650, 1, 0, 917651, 0, 0, 917664, 1, 0, 917665, 2, 0, 917666, 2, 0, 917667, 2, 0, 917668, 2, 0, 917669, 0, 0 )
+tile_data = PoolIntArray( -1113840, 1, 0, -1113839, 0, 0, -982773, 1, 0, -982772, 0, 0, -982763, 1, 0, -982762, 0, 0, -851696, 1, 0, -851695, 0, 0, -720629, 1, 0, -720628, 0, 0, -720619, 1, 0, -720618, 0, 0, -589552, 1, 0, -589551, 0, 0, -523982, 1, 0, -523981, 2, 0, -523980, 0, 0, -392906, 1, 0, -392905, 2, 0, -392904, 0, 0, -261830, 1, 0, -261829, 2, 0, -261828, 0, 0, 24, 536870912, 0, 25, 536870913, 0, 131092, 536870912, 0, 131093, 536870913, 0, 262243, 1, 0, 262244, 0, 0, 262249, 1, 0, 262250, 0, 0, 262255, 1, 0, 262256, 0, 0, 262261, 1, 0, 262262, 0, 0, 327688, 1, 0, 327689, 2, 0, 327690, 2, 0, 327691, 0, 0, 327695, 536870912, 0, 327696, 536870914, 0, 327697, 536870914, 0, 327698, 536870913, 0, 393338, 1, 0, 393339, 0, 0, 393438, 1, 0, 393439, 2, 0, 393440, 0, 0, 458851, 1, 0, 458852, 0, 0, 459005, 1, 0, 459006, 0, 0, 524415, 1, 0, 524416, 0, 0, 655458, 1, 0, 655459, 2, 0, 655460, 2, 0, 655461, 0, 0, 852065, 1, 0, 852066, 2, 0, 852067, 2, 0, 852068, 2, 0, 852069, 2, 0, 852070, 0, 0, 852144, 1, 0, 852145, 2, 0, 852146, 0, 0, 852150, 1, 0, 852151, 2, 0, 852152, 0, 0, 917585, 1, 0, 917586, 0, 0, 917597, 1, 0, 917598, 0, 0, 917650, 1, 0, 917651, 0, 0, 917664, 1, 0, 917665, 2, 0, 917666, 2, 0, 917667, 2, 0, 917668, 2, 0, 917669, 0, 0, 917713, 1, 0, 917714, 0, 0, 983234, 1, 0, 983235, 2, 0, 983236, 2, 0, 983237, 0, 0 )
 
 [node name="Ground" type="TileMap" parent="."]
 tile_set = ExtResource( 7 )
@@ -1040,7 +1243,7 @@ collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BirdEncounter1/ActivationArea"]
 position = Vector2( -791.757, 214.342 )
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 
 [node name="Birds" type="Node2D" parent="BirdEncounter1"]
 
@@ -1078,7 +1281,7 @@ collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BirdEncounter2/ActivationArea"]
 position = Vector2( 2949.61, 491.689 )
-shape = SubResource( 5 )
+shape = SubResource( 4 )
 
 [node name="Birds" type="Node2D" parent="BirdEncounter2"]
 
@@ -1115,19 +1318,19 @@ position = Vector2( 15000, 0 )
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BirdEncounter3/ActivationArea"]
-position = Vector2( 13633.8, -200.524 )
-shape = SubResource( 7 )
+position = Vector2( 13633.8, -515.693 )
+shape = SubResource( 5 )
 
 [node name="Birds" type="Node2D" parent="BirdEncounter3"]
 
 [node name="Bird" parent="BirdEncounter3/Birds" instance=ExtResource( 12 )]
-position = Vector2( 30542.3, -603.781 )
-speed = 1500
+position = Vector2( 30167.8, -923.043 )
+speed = 1200
 distance_to_travel = Vector2( -15000, 0 )
 
 [node name="Bird2" parent="BirdEncounter3/Birds" instance=ExtResource( 12 )]
-position = Vector2( 31253.5, -310.625 )
-speed = 1500
+position = Vector2( 30879, -629.887 )
+speed = 1200
 distance_to_travel = Vector2( -15000, 0 )
 
 [node name="BirdEncounter4" type="Node2D" parent="."]
@@ -1138,8 +1341,8 @@ position = Vector2( 15000, 0 )
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BirdEncounter4/ActivationArea"]
-position = Vector2( 18239.8, 132.42 )
-shape = SubResource( 8 )
+position = Vector2( 18574.1, 234.16 )
+shape = SubResource( 6 )
 
 [node name="Birds" type="Node2D" parent="BirdEncounter4"]
 
@@ -1172,7 +1375,7 @@ collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BirdEncounter5/ActivationArea"]
 position = Vector2( 19946.2, -1704.54 )
-shape = SubResource( 9 )
+shape = SubResource( 7 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1185,38 +1388,33 @@ speed = 1500
 distance_to_travel = Vector2( -13000, -8000 )
 
 [node name="Bird3" parent="BirdEncounter5/Birds" instance=ExtResource( 12 )]
-position = Vector2( 37212, -1293.99 )
+position = Vector2( 37662, 205.128 )
 speed = 1500
 distance_to_travel = Vector2( -13000, -8000 )
 
 [node name="Bird4" parent="BirdEncounter5/Birds" instance=ExtResource( 12 )]
-position = Vector2( 37908.1, -843.013 )
-speed = 1500
-distance_to_travel = Vector2( -13000, -8000 )
-
-[node name="Bird2" parent="BirdEncounter5/Birds" instance=ExtResource( 12 )]
-position = Vector2( 37404.6, -134.938 )
+position = Vector2( 38949.8, 1011.51 )
 speed = 1500
 distance_to_travel = Vector2( -13000, -8000 )
 
 [node name="Bird8" parent="BirdEncounter5/Birds" instance=ExtResource( 12 )]
-position = Vector2( 37811.9, -3638.57 )
+position = Vector2( 37387.8, -2796.57 )
 speed = 1500
 distance_to_travel = Vector2( -13000, 8000 )
 
 [node name="Bird7" parent="BirdEncounter5/Birds" instance=ExtResource( 12 )]
-position = Vector2( 38617.8, -4478.17 )
-speed = 1200
+position = Vector2( 40756.2, -4350.36 )
+speed = 1500
 distance_to_travel = Vector2( -13000, 8000 )
 
 [node name="Bird6" parent="BirdEncounter5/Birds" instance=ExtResource( 12 )]
-position = Vector2( 39324.4, -3729.24 )
+position = Vector2( 41835.1, -4978.07 )
 speed = 1500
 distance_to_travel = Vector2( -13000, 8000 )
 
 [node name="Bird5" parent="BirdEncounter5/Birds" instance=ExtResource( 12 )]
-position = Vector2( 38674.6, -2947.99 )
-speed = 1800
+position = Vector2( 39147.3, -3644.39 )
+speed = 1500
 distance_to_travel = Vector2( -13000, 8000 )
 
 [node name="BirdEncounter6" type="Node2D" parent="."]
@@ -1228,7 +1426,7 @@ collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BirdEncounter6/ActivationArea"]
 position = Vector2( 25028.5, -933.352 )
-shape = SubResource( 10 )
+shape = SubResource( 8 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -1263,50 +1461,70 @@ distance_to_travel = Vector2( -25000, 0 )
 [node name="EndZone" type="Node2D" parent="."]
 position = Vector2( 52599.1, 1775.09 )
 script = ExtResource( 14 )
+speed = 500
+boat_destination = Vector2( 1000, 0 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="EndZone"]
+autoplay = "Float"
+anims/Float = SubResource( 9 )
+
+[node name="Tween" type="Tween" parent="EndZone"]
+
+[node name="Boat" type="KinematicBody2D" parent="EndZone"]
+position = Vector2( 308.832, -40.5671 )
+collision_layer = 2
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="ColorRect" type="ColorRect" parent="EndZone"]
-margin_left = -100.0
-margin_top = -100.0
-margin_right = 100.0
-margin_bottom = 100.0
-rect_pivot_offset = Vector2( 100, 100 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Boat40pc" type="Sprite" parent="EndZone/Boat"]
+position = Vector2( -24.1211, 504.853 )
+z_index = 50
+texture = ExtResource( 26 )
 
-[node name="Area2D" type="Area2D" parent="EndZone"]
+[node name="Area2D" type="Area2D" parent="EndZone/Boat"]
+z_index = 99
 collision_layer = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="EndZone/Area2D"]
-shape = SubResource( 11 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EndZone/Boat/Area2D"]
+position = Vector2( -55.691, 486.678 )
+shape = SubResource( 10 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="EndZone/Boat"]
+polygon = PoolVector2Array( -279.781, 454.959, -242.801, 548.739, 137.383, 548.334, 140.742, 432.791, 107.152, 432.791, 107.152, 518.105, -219.324, 518.105, -219.324, 464.012 )
 
 [node name="Water" type="Node2D" parent="."]
-z_index = -2
+z_index = -1
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Water-1" type="Sprite" parent="Water"]
 position = Vector2( 53021.5, 2484.96 )
 texture = ExtResource( 24 )
-offset = Vector2( 0, -40 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Water-2" type="Sprite" parent="Water"]
-position = Vector2( 53036.9, 2506.32 )
+position = Vector2( 53036.9, 2507.63 )
 texture = ExtResource( 25 )
-offset = Vector2( 0, 20 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Water"]
 autoplay = "Water"
-anims/Water = SubResource( 12 )
+anims/Water = SubResource( 11 )
 [connection signal="hit" from="Player" to="." method="_on_Player_hit"]
 [connection signal="ready_for_encounter" from="Player" to="CanvasLayer/Transition" method="blank"]
 [connection signal="encounter_finished" from="CanvasLayer/Encounter" to="." method="_on_encounter_finished"]
 [connection signal="encounter_setup" from="CanvasLayer/Encounter" to="CanvasLayer/Transition" method="unblank"]
-[connection signal="blanked" from="CanvasLayer/Transition" to="CanvasLayer/Encounter" method="_on_transition_blanked"]
 [connection signal="blanked" from="CanvasLayer/Transition" to="." method="_on_transition_blanked"]
-[connection signal="unblanked" from="CanvasLayer/Transition" to="CanvasLayer/Encounter" method="_on_transition_unblanked"]
+[connection signal="blanked" from="CanvasLayer/Transition" to="CanvasLayer/Encounter" method="_on_transition_blanked"]
 [connection signal="unblanked" from="CanvasLayer/Transition" to="." method="_on_transition_unblanked"]
+[connection signal="unblanked" from="CanvasLayer/Transition" to="CanvasLayer/Encounter" method="_on_transition_unblanked"]
+[connection signal="finished" from="CanvasLayer/Countdown" to="." method="start_game"]
 [connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
 [connection signal="body_entered" from="BirdEncounter1/ActivationArea" to="BirdEncounter1" method="_on_ActivationArea_body_entered"]
 [connection signal="body_entered" from="BirdEncounter2/ActivationArea" to="BirdEncounter2" method="_on_ActivationArea_body_entered"]
@@ -1314,4 +1532,6 @@ anims/Water = SubResource( 12 )
 [connection signal="body_entered" from="BirdEncounter4/ActivationArea" to="BirdEncounter4" method="_on_ActivationArea_body_entered"]
 [connection signal="body_entered" from="BirdEncounter5/ActivationArea" to="BirdEncounter5" method="_on_ActivationArea_body_entered"]
 [connection signal="body_entered" from="BirdEncounter6/ActivationArea" to="BirdEncounter6" method="_on_ActivationArea_body_entered"]
-[connection signal="body_entered" from="EndZone/Area2D" to="EndZone" method="_on_Area2D_body_entered"]
+[connection signal="entered_end_zone" from="EndZone" to="." method="_on_EndZone_entered_end_zone"]
+[connection signal="ready_to_finish" from="EndZone" to="." method="_on_EndZone_ready_to_finish"]
+[connection signal="body_entered" from="EndZone/Boat/Area2D" to="EndZone" method="_on_Area2D_body_entered"]

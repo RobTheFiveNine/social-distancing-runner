@@ -150,7 +150,7 @@ func roll_new_encounter(enemy):
 	phrase = phrases[phrase_index]
 
 	if phrase_index > 10:
-		seconds_to_complete = int(max(seconds_to_complete, 8))
+		seconds_to_complete = int(max(seconds_to_complete, 10))
 
 	next_letter = 0
 	phrase_label.clear()
