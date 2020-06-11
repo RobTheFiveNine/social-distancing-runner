@@ -21,17 +21,20 @@ var green_colour = Color("48b36d")
 var red_colour = Color("c04d4d")
 
 var phrases = [
-	"Bleach is not\ngood for you",
-	"Stay at home\nsave lives",
-	"5G didn't cause\nthe pandemic",
-	"This isn't a distraction\nfrom 5G being rolled out",
-	"You shouldn't be socialising\non a crowded beach",
-	"Don't drive across the country\nto test your eye sight",
-	"If you can squat outside in\nprotest, you can do it at home",
-	"Bill Gates has nothing\nto do with this",
 	"It isn't Obama's fault",
-	"Don't take anti-malarial drugs\nwithout your doctor's approval",
-	"Wearing masks can protect\nyou and those around you"
+	"Stay at home\nsave lives",
+	"Bleach is not\ngood for you",
+	"5G didn't cause\nthe pandemic",
+	"Stop coughing on\npeople, Karen",
+	"Bill Gates has nothing\nto do with this",
+	"Your freedom isn't being\ntaken away from you",
+	"You shouldn't be socialising\non a crowded beach",
+	"VE day isn't an excuse\nto spread a deadly virus",
+	"This isn't a distraction\nfrom 5G being rolled out",
+	"Wearing masks can protect\nyou and those around you",
+	"Don't drive across the country\nto test your eye sight",
+	"Don't take malaria drugs\nwithout your doctor's approval",
+	"If you can squat outside in\nprotest, you can do it at home",
 ]
 
 func _ready():
@@ -139,15 +142,15 @@ func roll_new_encounter(enemy):
 	max_attempts = int(max(rand_range(1, 10), 3))
 	typos_made = 0
 	
-	seconds_to_complete = ceil(rand_range(3, 10))
+	seconds_to_complete = ceil(rand_range(5, 13))
 	timer.wait_time = seconds_to_complete
 	timer.one_shot = true
 
-	phrase_index = int(rand_range(0, len(phrases) - 1))
+	phrase_index = int(floor(rand_range(0, len(phrases))))
 	phrase = phrases[phrase_index]
 
-	if phrase_index == 6 or phrase_index == 9:
-		seconds_to_complete = int(max(seconds_to_complete, 6))
+	if phrase_index > 10:
+		seconds_to_complete = int(max(seconds_to_complete, 8))
 
 	next_letter = 0
 	phrase_label.clear()
