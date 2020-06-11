@@ -13,7 +13,7 @@ func _ready():
 	setup_tween()
 
 func _on_Area2D_body_entered(body : Player):
-	body.knock_back()
+	body.knock_back(true)
 
 func setup_tween() -> void:
 	var duration = distance_to_travel.length() / speed

@@ -16,6 +16,8 @@ export (bool) var invincible = false
 signal ready_for_encounter(enemy)
 signal hit(remaining_health, player_position)
 
+onready var invinciblity_timer : Timer = $InvincibilityTimer
+
 var initial_speed
 var initial_jump_strength
 var initial_fall_strength
@@ -108,7 +110,7 @@ func play_animation(name):
 		animation_player.play(name)
 
 func handle_knock_back():
-	if not knock_back_x:
+	if not knock_back_x and not knock_back_y:
 		return
 
 	if position.x <= knock_back_x:
@@ -161,10 +163,12 @@ func _on_enemy_found_player(enemy : Covidiot):
 			enemy = enemy
 		})
 
-func knock_back():
-	if invincible:
+func knock_back(respect_invincibility : bool = false):
+	if invincible and respect_invincibility:
 		return
-
+	
+	invincible = true
+	invinciblity_timer.start()
 	health = health - 1
 	emit_signal("hit", health, position)
 
@@ -199,3 +203,6 @@ func _on_EnergyBoostTimer_timeout():
 	fall_strength = initial_fall_strength
 	$EnergyBoostAnimation.stop()
 	$Sprites.modulate = Color(1, 1, 1, 1)
+
+func _on_InvincibilityTimer_timeout():
+	invincible = false

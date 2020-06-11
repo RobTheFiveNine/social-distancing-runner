@@ -5,7 +5,7 @@
 [ext_resource path="res://Prefabs/SpawnPoint/SpawnPoint.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 94.094, 7.547 )
+extents = Vector2( 96.2265, 9.82194 )
 
 [node name="LinearPlatform" type="Node2D"]
 script = ExtResource( 2 )
@@ -27,7 +27,7 @@ texture = ExtResource( 1 )
 position = Vector2( 0, -15.021 )
 shape = SubResource( 1 )
 one_way_collision = true
-one_way_collision_margin = 10.0
+one_way_collision_margin = 20.0
 
 [node name="SpawnPoint" parent="Platform" instance=ExtResource( 3 )]
 modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
