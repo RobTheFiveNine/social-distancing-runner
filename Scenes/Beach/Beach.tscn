@@ -41,7 +41,7 @@ __meta__ = {
 }
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( -35.4126, 791.453 )
+position = Vector2( 19.6865, 849.452 )
 z_index = 10
 collision_mask = 10
 instant_kill = true
@@ -68,6 +68,7 @@ visible = false
 [node name="Transition" parent="CanvasLayer" instance=ExtResource( 2 )]
 visible = false
 z_index = 99
+is_blanked = true
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
 anchor_right = 1.0
@@ -225,7 +226,6 @@ z_index = 20
 [node name="Timer" type="Timer" parent="."]
 wait_time = 120.0
 one_shot = true
-autostart = true
 
 [node name="Enemy_Spawn_Points" type="Node2D" parent="."]
 

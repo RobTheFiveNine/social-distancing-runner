@@ -160,6 +160,9 @@ func start():
 	timer.start()
 
 func _on_transition_blanked(tag):
+	if !tag:
+		return
+
 	if tag.next_scene == "encounter":
 		get_node("Countdown").reset()
 		roll_new_encounter(tag.enemy)
@@ -167,6 +170,9 @@ func _on_transition_blanked(tag):
 		get_node("Enemy").queue_free()
 
 func _on_transition_unblanked(tag):
+	if !tag:
+		return
+
 	if tag.next_scene == "encounter":
 		get_node("Countdown").start()
 

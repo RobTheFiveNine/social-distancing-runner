@@ -57,7 +57,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Social Distancing Runner"
-run/main_scene="res://Scenes/Beach/Beach.tscn"
+run/main_scene="res://Scenes/Title/Title.tscn"
 config/icon="res://icon.png"
 
 [autoload]

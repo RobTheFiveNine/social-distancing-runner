@@ -3,13 +3,15 @@ extends Node2D
 export (String) var game_over_scene_path = "res://Scenes/Game_Over/Game_Over.tscn"
 
 var last_encounter_won = false
-var smoke : CPUParticles2D
-var time_label : Label
-var score_label : Label
-var timer : Timer
-var transition : Transition
-var player : Player
-var item_audio : AudioStreamPlayer
+var started = false
+
+onready var smoke : CPUParticles2D = $Smoke
+onready var time_label : Label = $CanvasLayer/MarginContainer/GridContainer/TimeLabel
+onready var score_label : Label = $CanvasLayer/MarginContainer/GridContainer/ScoreLabel
+onready var timer : Timer = $Timer
+onready var transition : Transition = $CanvasLayer/Transition
+onready var player : Player = $Player
+onready var item_audio : AudioStreamPlayer = $ItemAudioPlayer
 
 const ENEMY_TYPES = {
 	c1v1 = preload("res://Prefabs/Characters/Covidiot_1/Covidiot_1.tscn"),
@@ -93,27 +95,40 @@ func generate_covidiots() -> void:
 
 	spawns.queue_free()
 
+func spawn_smoke(at_location):
+	smoke.position = Vector2(
+		at_location.x + 5.584,
+		at_location.y + 125.78
+	)
+
+	smoke.restart()
+
+func start_game():
+	timer.start()
+	player.ignore_input = false
+	started = true
+
 func _ready():
 	randomize()
 
 	Globals.reset_stats()
 
-	player = get_node("Player")
-	get_node("CanvasLayer/Transition").visible = true
-	smoke = get_node("Smoke")
-	time_label = get_node("CanvasLayer/MarginContainer/GridContainer/TimeLabel")
-	timer = get_node("Timer")
-	transition = get_node("CanvasLayer/Transition")
-	score_label = get_node("CanvasLayer/MarginContainer/GridContainer/ScoreLabel")
-	item_audio = get_node("ItemAudioPlayer")
+	player.ignore_input = true
+	transition.visible = true
 
 	generate_covidiots()
 	generate_items()
+
+	transition.unblank()
 	
 	#$AudioStreamPlayer.play()
 	
 func _process(_delta):
-	time_label.text = "TIME\n%.2f" % timer.time_left
+	if started:
+		time_label.text = "TIME\n%.2f" % timer.time_left
+	else:
+		time_label.text = "TIME\n%.2f" % timer.wait_time
+
 	score_label.text = "SCORE\n%d" % Globals.score
 
 func _on_encounter_finished(won):
@@ -128,9 +143,12 @@ func _on_encounter_finished(won):
 	})
 
 func _on_transition_unblanked(tag):
+	if !tag:
+		return start_game()
+
 	if tag.next_scene == "beach":
 		get_tree().paused = false
-		get_node("Player").process_encounter_result(last_encounter_won)
+		player.process_encounter_result(last_encounter_won)		
 
 func _on_transition_blanked(tag):
 	if tag.next_scene == "beach":
@@ -142,14 +160,6 @@ func _on_transition_blanked(tag):
 
 func _on_enemy_died(death_location):
 	spawn_smoke(death_location)
-
-func spawn_smoke(at_location):
-	smoke.position = Vector2(
-		at_location.x + 5.584,
-		at_location.y + 125.78
-	)
-
-	smoke.restart()
 
 func _on_Timer_timeout():
 	player.die()
