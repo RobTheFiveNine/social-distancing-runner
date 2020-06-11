@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://Prefabs/Characters/Player/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Transitions/BoxInAndOut.tscn" type="PackedScene" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://Scenes/Beach/Trees.gd" type="Script" id=11]
 [ext_resource path="res://Prefabs/Characters/Bird/Bird.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Scenes/Beach/Scripts/BirdEncounter.gd" type="Script" id=13]
+[ext_resource path="res://Scenes/Beach/Scripts/EndZone.gd" type="Script" id=14]
 [ext_resource path="res://Sprites/Background/cloud_1.40pc.png" type="Texture" id=15]
 [ext_resource path="res://Music/Loyalty_Freak_Music_-_04_-_Cant_Stop_My_Feet_.ogg" type="AudioStream" id=16]
 [ext_resource path="res://Prefabs/Particles/Smoke.tscn" type="PackedScene" id=17]
@@ -22,6 +23,8 @@
 [ext_resource path="res://Prefabs/SpawnPoint/SpawnPoint.tscn" type="PackedScene" id=21]
 [ext_resource path="res://SFX/Pickup.wav" type="AudioStream" id=22]
 [ext_resource path="res://Scripts/PolyphonyAudioPlayer.gd" type="Script" id=23]
+[ext_resource path="res://Sprites/Background/Water-1.png" type="Texture" id=24]
+[ext_resource path="res://Sprites/Background/Water-2.png" type="Texture" id=25]
 
 [sub_resource type="DynamicFontData" id=1]
 font_path = "res://Fonts/joystix.monospace.ttf"
@@ -30,8 +33,71 @@ font_path = "res://Fonts/joystix.monospace.ttf"
 size = 35
 font_data = SubResource( 1 )
 
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 549.24, 51.7416 )
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 645.772, 253.567 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 307.008, 488.746 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 705.699, 116.328 )
+
+[sub_resource type="RectangleShape2D" id=8]
+extents = Vector2( 705.699, 116.328 )
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 177.508, 652.03 )
+
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 876.625, 652.03 )
+
+[sub_resource type="RectangleShape2D" id=11]
+extents = Vector2( 100, 100 )
+
+[sub_resource type="Animation" id=12]
+resource_name = "Water"
+length = 2.0
+loop = true
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Water-1:offset:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1, 2 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Water-1:offset:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, -40, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1, 2 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("Water-2:offset:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1, 2 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("Water-2:offset:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 20, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1, 2 )
+}
 
 [node name="Beach" type="Node2D"]
 script = ExtResource( 5 )
@@ -41,14 +107,14 @@ __meta__ = {
 }
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 19.6865, 849.452 )
+position = Vector2( 51543.5, 1883.81 )
 z_index = 10
 collision_mask = 10
 instant_kill = true
 invincible = true
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2( 608.764, -197.713 )
+position = Vector2( 611.065, -276.523 )
 current = true
 zoom = Vector2( 1.4, 1.4 )
 limit_bottom = 2550
@@ -296,12 +362,10 @@ spawn_chance = 0.2
 
 [node name="SpawnPoint16" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
 position = Vector2( 21114.5, 1528.19 )
-spawn_chance = 0.3
 
 [node name="SpawnPoint17" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
 position = Vector2( 22451.7, 1831.75 )
 guaranteed_spawn = true
-spawn_chance = 0.3
 
 [node name="SpawnPoint18" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
 position = Vector2( 23124.1, 1831.75 )
@@ -310,6 +374,54 @@ spawn_chance = 0.6
 [node name="SpawnPoint19" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
 position = Vector2( 23696.7, 1827.91 )
 spawn_chance = 0.6
+
+[node name="SpawnPoint20" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
+position = Vector2( 28629.5, 1311.43 )
+spawn_chance = 0.6
+
+[node name="SpawnPoint21" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
+position = Vector2( 34308.5, -1646 )
+spawn_chance = 0.2
+tag_to_load = "c1v1"
+
+[node name="SpawnPoint26" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
+position = Vector2( 35587.5, -1646 )
+spawn_chance = 0.2
+tag_to_load = "c1v1"
+
+[node name="SpawnPoint28" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
+position = Vector2( 42923.1, 314.214 )
+spawn_chance = 0.4
+
+[node name="SpawnPoint29" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
+position = Vector2( 43772, 314.214 )
+guaranteed_spawn = true
+spawn_chance = 0.4
+
+[node name="SpawnPoint27" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
+position = Vector2( 35587.5, -2154.7 )
+spawn_chance = 0.2
+tag_to_load = "c1v1"
+
+[node name="SpawnPoint22" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
+position = Vector2( 34308.5, -2154.7 )
+spawn_chance = 0.2
+tag_to_load = "c1v1"
+
+[node name="SpawnPoint23" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
+position = Vector2( 34948, -2416.32 )
+spawn_chance = 0.2
+tag_to_load = "c1v1"
+
+[node name="SpawnPoint25" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
+position = Vector2( 34948, -1384.38 )
+spawn_chance = 0.2
+tag_to_load = "c1v1"
+
+[node name="SpawnPoint24" parent="Enemy_Spawn_Points" instance=ExtResource( 21 )]
+position = Vector2( 34948, -1897.23 )
+spawn_chance = 0.2
+tag_to_load = "c1v1"
 
 [node name="Item_Spawn_Points" type="Node2D" parent="."]
 
@@ -343,12 +455,124 @@ position = Vector2( 5343.62, 1445.01 )
 guaranteed_spawn = true
 spawn_chance = 0.7
 
+[node name="SpawnPoint26" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 7693.36, 589.7 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint28" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 7887.66, 589.7 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint27" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 7501.96, 589.7 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
 [node name="SpawnPoint10" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
 modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
 position = Vector2( 12789.5, -890.493 )
 guaranteed_spawn = true
 spawn_chance = 0.7
 tag_to_load = "time"
+
+[node name="SpawnPoint29" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 11268.9, 1569.94 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint32" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 11268.9, 1296.79 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint35" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 10499.8, 1868.96 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint36" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 8752.38, 653.008 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint38" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 8977.9, 653.008 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint39" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 9088.97, 766.327 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint40" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 9202.29, 886.377 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint41" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 9314.48, 1021.01 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint37" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 8864.95, 560.917 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint30" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 11149.6, 1505.53 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint31" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 11149.6, 1384.86 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint33" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 11388.4, 1505.53 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint34" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 11388.4, 1383.12 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
 
 [node name="SpawnPoint11" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
 modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
@@ -411,6 +635,160 @@ guaranteed_spawn = true
 spawn_chance = 0.7
 tag_to_load = "time"
 
+[node name="SpawnPoint22" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 31090.1, 384.643 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint23" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 31346, 384.643 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint24" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 31604.1, 384.643 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint42" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 34124.3, -7.39807 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "time"
+
+[node name="SpawnPoint25" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 31858.9, 384.643 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint43" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 34307.2, -1550.87 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint44" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 34307.2, -2058.78 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint45" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 35588.5, -2058.78 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint50" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 39876.8, -1198.96 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint51" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 40390.7, -962.869 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint52" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 40797.6, -589.13 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint53" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 40959.5, -429.434 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint54" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 41136.8, -249.92 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint55" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 41286, -102.942 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint56" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 41440.9, 54.133 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint57" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 41587.8, 197.745 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint58" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 41739.3, 349.21 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint59" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 41739.3, 349.21 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint46" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 35588.5, -1547.02 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint47" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 34946.9, -1291.15 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint48" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 34946.9, -1800.98 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
+[node name="SpawnPoint49" parent="Item_Spawn_Points" instance=ExtResource( 21 )]
+modulate = Color( 0.337255, 0.498039, 0.47451, 1 )
+position = Vector2( 34946.9, -2314.66 )
+guaranteed_spawn = true
+spawn_chance = 0.7
+tag_to_load = "coin"
+
 [node name="ItemAudioPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 22 )
 volume_db = -8.0
@@ -458,6 +836,74 @@ position = Vector2( 28615.8, 472.562 )
 move_to = Vector2( 0, -1000 )
 item_spawn_chance = 0.3
 item_type_to_load = "coin"
+
+[node name="LinearPlatform9" parent="MovingPlatforms" instance=ExtResource( 8 )]
+position = Vector2( 30499, 738.316 )
+move_to = Vector2( 0, 830 )
+item_spawn_chance = 0.3
+item_type_to_load = "coin"
+
+[node name="LinearPlatform10" parent="MovingPlatforms" instance=ExtResource( 8 )]
+position = Vector2( 30819, 738.316 )
+move_to = Vector2( 830, 0 )
+item_spawn_chance = 0.3
+item_type_to_load = "coin"
+
+[node name="LinearPlatform11" parent="MovingPlatforms" instance=ExtResource( 8 )]
+position = Vector2( 32860.5, 738.316 )
+idle_duration = 0.3
+move_to = Vector2( 1000, -1000 )
+speed = 900.0
+item_spawn_chance = 0.1
+item_type_to_load = "time"
+
+[node name="LinearPlatform12" parent="MovingPlatforms" instance=ExtResource( 8 )]
+position = Vector2( 33893.4, 469.414 )
+idle_duration = 0.3
+move_to = Vector2( -1000, -1000 )
+speed = 900.0
+can_spawn_items = false
+item_spawn_chance = 0.15
+
+[node name="LinearPlatform13" parent="MovingPlatforms" instance=ExtResource( 8 )]
+position = Vector2( 33893.4, -1609.58 )
+idle_duration = 0.3
+move_to = Vector2( -1000, 1000 )
+speed = 900.0
+can_spawn_items = false
+item_spawn_chance = 0.15
+
+[node name="LinearPlatform15" parent="MovingPlatforms" instance=ExtResource( 8 )]
+position = Vector2( 36065.8, -1303.91 )
+idle_duration = 0.6
+move_to = Vector2( 600, 0 )
+speed = 900.0
+can_spawn_items = false
+item_spawn_chance = 0.15
+
+[node name="LinearPlatform17" parent="MovingPlatforms" instance=ExtResource( 8 )]
+position = Vector2( 37919.3, -1184.77 )
+idle_duration = 0.6
+move_to = Vector2( 600, 0 )
+speed = 900.0
+can_spawn_items = false
+item_spawn_chance = 0.15
+
+[node name="LinearPlatform18" parent="MovingPlatforms" instance=ExtResource( 8 )]
+position = Vector2( 40797.1, -477.137 )
+idle_duration = 1.0
+move_to = Vector2( 1000, 1000 )
+speed = 900.0
+can_spawn_items = false
+item_spawn_chance = 0.0
+
+[node name="LinearPlatform16" parent="MovingPlatforms" instance=ExtResource( 8 )]
+position = Vector2( 37592.7, -1303.91 )
+idle_duration = 0.6
+move_to = Vector2( -600, 0 )
+speed = 900.0
+can_spawn_items = false
+item_spawn_chance = 0.15
 
 [node name="BackgroundSprites" type="Node2D" parent="."]
 z_index = -5
@@ -534,6 +980,37 @@ texture = ExtResource( 10 )
 position = Vector2( 29725.3, 1018.56 )
 texture = ExtResource( 9 )
 
+[node name="tree-270pc8" type="Sprite" parent="BackgroundSprites"]
+position = Vector2( 42537.6, 15.5299 )
+texture = ExtResource( 10 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="tree-170pc7" type="Sprite" parent="BackgroundSprites"]
+position = Vector2( 43397.6, -5.75818 )
+texture = ExtResource( 9 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="tree-270pc9" type="Sprite" parent="BackgroundSprites"]
+position = Vector2( 44198.1, -1.50049 )
+texture = ExtResource( 10 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Sign_Post40pc4" type="Sprite" parent="BackgroundSprites"]
+position = Vector2( 44290.9, 360.396 )
+scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 3 )
+
+[node name="Sign_Post40pc5" type="Sprite" parent="BackgroundSprites"]
+position = Vector2( 47852.7, 860.46 )
+scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 3 )
+
 [node name="Platforms" type="TileMap" parent="."]
 position = Vector2( 0, -39.425 )
 tile_set = ExtResource( 6 )
@@ -541,7 +1018,7 @@ cell_size = Vector2( 128, 128 )
 collision_layer = 2
 collision_mask = 5
 format = 1
-tile_data = PoolIntArray( 24, 536870912, 0, 25, 536870913, 0, 131092, 536870912, 0, 131093, 536870913, 0, 262243, 1, 0, 262244, 0, 0, 262249, 1, 0, 262250, 0, 0, 262255, 1, 0, 262256, 0, 0, 262261, 1, 0, 262262, 0, 0, 327688, 1, 0, 327689, 2, 0, 327690, 2, 0, 327691, 0, 0, 327695, 536870912, 0, 327696, 536870914, 0, 327697, 536870914, 0, 327698, 536870913, 0, 393338, 1, 0, 393339, 0, 0, 393438, 1, 0, 393439, 2, 0, 393440, 0, 0, 458851, 1, 0, 458852, 0, 0, 524415, 1, 0, 524416, 0, 0, 655458, 1, 0, 655459, 2, 0, 655460, 2, 0, 655461, 0, 0, 852065, 1, 0, 852066, 2, 0, 852067, 2, 0, 852068, 2, 0, 852069, 2, 0, 852070, 0, 0, 852144, 1, 0, 852145, 2, 0, 852146, 0, 0, 852150, 1, 0, 852151, 2, 0, 852152, 0, 0, 917650, 1, 0, 917651, 0, 0, 917664, 1, 0, 917665, 2, 0, 917666, 2, 0, 917667, 2, 0, 917668, 2, 0, 917669, 0, 0 )
+tile_data = PoolIntArray( -1113840, 1, 0, -1113839, 0, 0, -982773, 1, 0, -982772, 0, 0, -982763, 1, 0, -982762, 0, 0, -851696, 1, 0, -851695, 0, 0, -720629, 1, 0, -720628, 0, 0, -720619, 1, 0, -720618, 0, 0, -589552, 1, 0, -589551, 0, 0, -523982, 1, 0, -523981, 2, 0, -523980, 0, 0, -392906, 1, 0, -392905, 2, 0, -392904, 0, 0, -261830, 1, 0, -261829, 2, 0, -261828, 0, 0, 24, 536870912, 0, 25, 536870913, 0, 131092, 536870912, 0, 131093, 536870913, 0, 262243, 1, 0, 262244, 0, 0, 262249, 1, 0, 262250, 0, 0, 262255, 1, 0, 262256, 0, 0, 262261, 1, 0, 262262, 0, 0, 327688, 1, 0, 327689, 2, 0, 327690, 2, 0, 327691, 0, 0, 327695, 536870912, 0, 327696, 536870914, 0, 327697, 536870914, 0, 327698, 536870913, 0, 393338, 1, 0, 393339, 0, 0, 393438, 1, 0, 393439, 2, 0, 393440, 0, 0, 458851, 1, 0, 458852, 0, 0, 459005, 1, 0, 459006, 0, 0, 524415, 1, 0, 524416, 0, 0, 655458, 1, 0, 655459, 2, 0, 655460, 2, 0, 655461, 0, 0, 852065, 1, 0, 852066, 2, 0, 852067, 2, 0, 852068, 2, 0, 852069, 2, 0, 852070, 0, 0, 852144, 1, 0, 852145, 2, 0, 852146, 0, 0, 852150, 1, 0, 852151, 2, 0, 852152, 0, 0, 917650, 1, 0, 917651, 0, 0, 917664, 1, 0, 917665, 2, 0, 917666, 2, 0, 917667, 2, 0, 917668, 2, 0, 917669, 0, 0 )
 
 [node name="Ground" type="TileMap" parent="."]
 tile_set = ExtResource( 7 )
@@ -552,7 +1029,7 @@ collision_use_kinematic = true
 collision_layer = 2
 collision_mask = 5
 format = 1
-tile_data = PoolIntArray( 196607, 4, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 1, 0, 131085, 536870913, 0, 131086, 536870912, 0, 131087, 536870912, 0, 131088, 1, 0, 262143, 536870914, 0, 196608, 536870917, 0, 196609, 536870917, 0, 196610, 536870917, 0, 196611, 5, 0, 196612, 5, 0, 196613, 5, 0, 196614, 2, 0, 196616, 4, 0, 196617, 0, 0, 196618, 1, 0, 196621, 536870914, 0, 196622, 536870917, 0, 196623, 536870917, 0, 196624, 2, 0, 196661, 4, 0, 196662, 0, 0, 196663, 0, 0, 196664, 0, 0, 196665, 0, 0, 196666, 1, 0, 327679, 536870918, 0, 262144, 5, 0, 262145, 5, 0, 262146, 5, 0, 262147, 5, 0, 262148, 5, 0, 262149, 5, 0, 262150, 6, 0, 262152, 536870914, 0, 262153, 536870917, 0, 262154, 2, 0, 262157, 536870918, 0, 262158, 536870917, 0, 262159, 536870917, 0, 262160, 6, 0, 262162, 4, 0, 262163, 1, 0, 262165, 4, 0, 262166, 1, 0, 262168, 4, 0, 262169, 1, 0, 262186, 4, 0, 262187, 0, 0, 262188, 0, 0, 262189, 0, 0, 262190, 0, 0, 262191, 1, 0, 262194, 4, 0, 262195, 1, 0, 262197, 536870914, 0, 262198, 5, 0, 262199, 5, 0, 262200, 5, 0, 262201, 5, 0, 262202, 2, 0 )
+tile_data = PoolIntArray( 65618, 4, 0, 65619, 0, 0, 65620, 0, 0, 65621, 0, 0, 65622, 1, 0, 196607, 4, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 1, 0, 131085, 536870913, 0, 131086, 536870912, 0, 131087, 536870912, 0, 131088, 1, 0, 131154, 536870914, 0, 131155, 5, 0, 131156, 5, 0, 131157, 5, 0, 131158, 2, 0, 131160, 4, 0, 131161, 0, 0, 131162, 0, 0, 131163, 0, 0, 131164, 0, 0, 131165, 1, 0, 262143, 536870914, 0, 196608, 536870917, 0, 196609, 536870917, 0, 196610, 536870917, 0, 196611, 5, 0, 196612, 5, 0, 196613, 5, 0, 196614, 2, 0, 196616, 4, 0, 196617, 0, 0, 196618, 1, 0, 196621, 536870914, 0, 196622, 536870917, 0, 196623, 536870917, 0, 196624, 2, 0, 196661, 4, 0, 196662, 0, 0, 196663, 0, 0, 196664, 0, 0, 196665, 0, 0, 196666, 1, 0, 196690, 536870918, 0, 196691, 5, 0, 196692, 5, 0, 196693, 5, 0, 196694, 6, 0, 196696, 536870914, 0, 196697, 5, 0, 196698, 5, 0, 196699, 5, 0, 196700, 5, 0, 196701, 2, 0, 196703, 4, 0, 196704, 0, 0, 196705, 1, 0, 327679, 536870918, 0, 262144, 5, 0, 262145, 5, 0, 262146, 5, 0, 262147, 5, 0, 262148, 5, 0, 262149, 5, 0, 262150, 6, 0, 262152, 536870914, 0, 262153, 536870917, 0, 262154, 2, 0, 262157, 536870918, 0, 262158, 536870917, 0, 262159, 536870917, 0, 262160, 6, 0, 262162, 4, 0, 262163, 1, 0, 262165, 4, 0, 262166, 1, 0, 262168, 4, 0, 262169, 1, 0, 262186, 4, 0, 262187, 0, 0, 262188, 0, 0, 262189, 0, 0, 262190, 0, 0, 262191, 1, 0, 262194, 4, 0, 262195, 1, 0, 262197, 536870914, 0, 262198, 5, 0, 262199, 5, 0, 262200, 5, 0, 262201, 5, 0, 262202, 2, 0, 262226, 536870918, 0, 262227, 5, 0, 262228, 5, 0, 262229, 5, 0, 262230, 6, 0, 262232, 536870918, 0, 262233, 5, 0, 262234, 5, 0, 262235, 5, 0, 262236, 5, 0, 262237, 6, 0, 262239, 536870914, 0, 262240, 5, 0, 262241, 2, 0, 262243, 4, 0, 262244, 0, 0, 262245, 1, 0 )
 
 [node name="BirdEncounter1" type="Node2D" parent="."]
 script = ExtResource( 13 )
@@ -562,8 +1039,8 @@ position = Vector2( 15000, 0 )
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BirdEncounter1/ActivationArea"]
-position = Vector2( -791.757, 50.8136 )
-shape = SubResource( 3 )
+position = Vector2( -791.757, 214.342 )
+shape = SubResource( 4 )
 
 [node name="Birds" type="Node2D" parent="BirdEncounter1"]
 
@@ -601,7 +1078,7 @@ collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BirdEncounter2/ActivationArea"]
 position = Vector2( 2949.61, 491.689 )
-shape = SubResource( 3 )
+shape = SubResource( 5 )
 
 [node name="Birds" type="Node2D" parent="BirdEncounter2"]
 
@@ -638,8 +1115,8 @@ position = Vector2( 15000, 0 )
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BirdEncounter3/ActivationArea"]
-position = Vector2( 13643.7, -56.5142 )
-shape = SubResource( 3 )
+position = Vector2( 13633.8, -200.524 )
+shape = SubResource( 7 )
 
 [node name="Birds" type="Node2D" parent="BirdEncounter3"]
 
@@ -652,6 +1129,176 @@ distance_to_travel = Vector2( -15000, 0 )
 position = Vector2( 31253.5, -310.625 )
 speed = 1500
 distance_to_travel = Vector2( -15000, 0 )
+
+[node name="BirdEncounter4" type="Node2D" parent="."]
+script = ExtResource( 13 )
+
+[node name="ActivationArea" type="Area2D" parent="BirdEncounter4"]
+position = Vector2( 15000, 0 )
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BirdEncounter4/ActivationArea"]
+position = Vector2( 18239.8, 132.42 )
+shape = SubResource( 8 )
+
+[node name="Birds" type="Node2D" parent="BirdEncounter4"]
+
+[node name="Bird" parent="BirdEncounter4/Birds" instance=ExtResource( 12 )]
+position = Vector2( 36150.8, 1350.39 )
+speed = 1500
+distance_to_travel = Vector2( -13000, -5000 )
+
+[node name="Bird3" parent="BirdEncounter4/Birds" instance=ExtResource( 12 )]
+position = Vector2( 36674.4, 944.65 )
+speed = 1200
+distance_to_travel = Vector2( -13000, -5000 )
+
+[node name="Bird4" parent="BirdEncounter4/Birds" instance=ExtResource( 12 )]
+position = Vector2( 37558.7, 1364.26 )
+speed = 1500
+distance_to_travel = Vector2( -13000, -5000 )
+
+[node name="Bird2" parent="BirdEncounter4/Birds" instance=ExtResource( 12 )]
+position = Vector2( 36830.5, 1586.2 )
+speed = 1800
+distance_to_travel = Vector2( -13000, -5000 )
+
+[node name="BirdEncounter5" type="Node2D" parent="."]
+script = ExtResource( 13 )
+
+[node name="ActivationArea" type="Area2D" parent="BirdEncounter5"]
+position = Vector2( 15000, 0 )
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BirdEncounter5/ActivationArea"]
+position = Vector2( 19946.2, -1704.54 )
+shape = SubResource( 9 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Birds" type="Node2D" parent="BirdEncounter5"]
+
+[node name="Bird" parent="BirdEncounter5/Birds" instance=ExtResource( 12 )]
+position = Vector2( 36589, -616.432 )
+speed = 1500
+distance_to_travel = Vector2( -13000, -8000 )
+
+[node name="Bird3" parent="BirdEncounter5/Birds" instance=ExtResource( 12 )]
+position = Vector2( 37212, -1293.99 )
+speed = 1500
+distance_to_travel = Vector2( -13000, -8000 )
+
+[node name="Bird4" parent="BirdEncounter5/Birds" instance=ExtResource( 12 )]
+position = Vector2( 37908.1, -843.013 )
+speed = 1500
+distance_to_travel = Vector2( -13000, -8000 )
+
+[node name="Bird2" parent="BirdEncounter5/Birds" instance=ExtResource( 12 )]
+position = Vector2( 37404.6, -134.938 )
+speed = 1500
+distance_to_travel = Vector2( -13000, -8000 )
+
+[node name="Bird8" parent="BirdEncounter5/Birds" instance=ExtResource( 12 )]
+position = Vector2( 37811.9, -3638.57 )
+speed = 1500
+distance_to_travel = Vector2( -13000, 8000 )
+
+[node name="Bird7" parent="BirdEncounter5/Birds" instance=ExtResource( 12 )]
+position = Vector2( 38617.8, -4478.17 )
+speed = 1200
+distance_to_travel = Vector2( -13000, 8000 )
+
+[node name="Bird6" parent="BirdEncounter5/Birds" instance=ExtResource( 12 )]
+position = Vector2( 39324.4, -3729.24 )
+speed = 1500
+distance_to_travel = Vector2( -13000, 8000 )
+
+[node name="Bird5" parent="BirdEncounter5/Birds" instance=ExtResource( 12 )]
+position = Vector2( 38674.6, -2947.99 )
+speed = 1800
+distance_to_travel = Vector2( -13000, 8000 )
+
+[node name="BirdEncounter6" type="Node2D" parent="."]
+script = ExtResource( 13 )
+
+[node name="ActivationArea" type="Area2D" parent="BirdEncounter6"]
+position = Vector2( 15000, 0 )
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BirdEncounter6/ActivationArea"]
+position = Vector2( 25028.5, -933.352 )
+shape = SubResource( 10 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Birds" type="Node2D" parent="BirdEncounter6"]
+
+[node name="Bird" parent="BirdEncounter6/Birds" instance=ExtResource( 12 )]
+position = Vector2( 42466.7, -1206.8 )
+speed = 2000
+distance_to_travel = Vector2( -25000, 0 )
+
+[node name="Bird2" parent="BirdEncounter6/Birds" instance=ExtResource( 12 )]
+position = Vector2( 45402.7, -848.614 )
+speed = 2000
+distance_to_travel = Vector2( -25000, 0 )
+
+[node name="Bird3" parent="BirdEncounter6/Birds" instance=ExtResource( 12 )]
+position = Vector2( 47240.1, -363.514 )
+speed = 2000
+distance_to_travel = Vector2( -25000, 0 )
+
+[node name="Bird4" parent="BirdEncounter6/Birds" instance=ExtResource( 12 )]
+position = Vector2( 50513.2, -162.362 )
+speed = 2000
+distance_to_travel = Vector2( -25000, 0 )
+
+[node name="Bird5" parent="BirdEncounter6/Birds" instance=ExtResource( 12 )]
+position = Vector2( 49261.3, -1088.99 )
+speed = 2000
+distance_to_travel = Vector2( -25000, 0 )
+
+[node name="EndZone" type="Node2D" parent="."]
+position = Vector2( 52599.1, 1775.09 )
+script = ExtResource( 14 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="ColorRect" type="ColorRect" parent="EndZone"]
+margin_left = -100.0
+margin_top = -100.0
+margin_right = 100.0
+margin_bottom = 100.0
+rect_pivot_offset = Vector2( 100, 100 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Area2D" type="Area2D" parent="EndZone"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EndZone/Area2D"]
+shape = SubResource( 11 )
+
+[node name="Water" type="Node2D" parent="."]
+z_index = -2
+
+[node name="Water-1" type="Sprite" parent="Water"]
+position = Vector2( 53021.5, 2484.96 )
+texture = ExtResource( 24 )
+offset = Vector2( 0, -40 )
+
+[node name="Water-2" type="Sprite" parent="Water"]
+position = Vector2( 53036.9, 2506.32 )
+texture = ExtResource( 25 )
+offset = Vector2( 0, 20 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Water"]
+autoplay = "Water"
+anims/Water = SubResource( 12 )
 [connection signal="hit" from="Player" to="." method="_on_Player_hit"]
 [connection signal="ready_for_encounter" from="Player" to="CanvasLayer/Transition" method="blank"]
 [connection signal="encounter_finished" from="CanvasLayer/Encounter" to="." method="_on_encounter_finished"]
@@ -664,3 +1311,7 @@ distance_to_travel = Vector2( -15000, 0 )
 [connection signal="body_entered" from="BirdEncounter1/ActivationArea" to="BirdEncounter1" method="_on_ActivationArea_body_entered"]
 [connection signal="body_entered" from="BirdEncounter2/ActivationArea" to="BirdEncounter2" method="_on_ActivationArea_body_entered"]
 [connection signal="body_entered" from="BirdEncounter3/ActivationArea" to="BirdEncounter3" method="_on_ActivationArea_body_entered"]
+[connection signal="body_entered" from="BirdEncounter4/ActivationArea" to="BirdEncounter4" method="_on_ActivationArea_body_entered"]
+[connection signal="body_entered" from="BirdEncounter5/ActivationArea" to="BirdEncounter5" method="_on_ActivationArea_body_entered"]
+[connection signal="body_entered" from="BirdEncounter6/ActivationArea" to="BirdEncounter6" method="_on_ActivationArea_body_entered"]
+[connection signal="body_entered" from="EndZone/Area2D" to="EndZone" method="_on_Area2D_body_entered"]
