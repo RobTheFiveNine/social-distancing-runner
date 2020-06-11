@@ -17,6 +17,9 @@ var active : bool
 var timer : Timer
 var key_sfx_player : AudioStreamPlayer
 
+var green_colour = Color("48b36d")
+var red_colour = Color("c04d4d")
+
 var phrases = [
 	"Bleach is not\ngood for you",
 	"Stay at home\nsave lives",
@@ -27,7 +30,7 @@ var phrases = [
 	"If you can squat outside in\nprotest, you can do it at home",
 	"Bill Gates has nothing\nto do with this",
 	"It isn't Obama's fault",
-	"Don't take antimalarial drugs\nwithout your doctor's approval",
+	"Don't take anti-malarial drugs\nwithout your doctor's approval",
 	"Wearing masks can protect\nyou and those around you"
 ]
 
@@ -78,11 +81,11 @@ func draw_phrase():
 	for i in range(0, len(phrase)):
 		if i < len(actions):
 			if actions[i]:
-				phrase_label.push_color(Color.green)
+				phrase_label.push_color(green_colour)
 			else:
-				phrase_label.push_color(Color.red)
+				phrase_label.push_color(red_colour)
 		else:
-			phrase_label.push_color(Color.white)
+			phrase_label.push_color(Color.black)
 		
 		phrase_label.append_bbcode(phrase[i].to_upper())
 		
@@ -142,6 +145,9 @@ func roll_new_encounter(enemy):
 
 	phrase_index = int(rand_range(0, len(phrases) - 1))
 	phrase = phrases[phrase_index]
+
+	if phrase_index == 6 or phrase_index == 9:
+		seconds_to_complete = int(max(seconds_to_complete, 6))
 
 	next_letter = 0
 	phrase_label.clear()
