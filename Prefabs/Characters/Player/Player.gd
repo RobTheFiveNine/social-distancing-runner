@@ -18,6 +18,8 @@ signal ready_for_encounter(enemy)
 signal hit(remaining_health, player_position)
 
 onready var invinciblity_timer : Timer = $InvincibilityTimer
+onready var pulse_animation : AnimationPlayer = $PulseAnimationPlayer
+onready var energy_timer : Timer = $EnergyBoostTimer
 
 var initial_speed
 var initial_jump_strength
@@ -27,7 +29,6 @@ var running = false
 var jumping = false
 var falling = false
 var velocity = Vector2()
-var energy_timer : Timer
 var dead : bool = false
 
 var knock_back_x = null
@@ -42,11 +43,11 @@ func _ready():
 	initial_speed = speed
 	initial_fall_strength = fall_strength
 	initial_jump_strength = jump_strength
-	energy_timer = get_node("EnergyBoostTimer")
 	jump_audio = get_node("JumpAudio")
 	animation_player = get_node("AnimationPlayer")
 	floor_ray = get_node("FloorRayCast")
 	play_animation("Neutral")
+	invinciblity_timer.wait_time = invinciblity_timer.wait_time * (3 - Globals.difficulty)
 
 func is_on_ground_or_platform():
 	return is_on_floor() or floor_ray.is_colliding()
@@ -179,6 +180,7 @@ func knock_back(respect_invincibility : bool = false):
 	else:
 		get_node("Hit").play()
 		play_animation("Knock_Back")
+		pulse_animation.play("Invincible")
 		knock_back_x = position.x - 800
 		knock_back_y = position.y - 300
 
@@ -196,15 +198,25 @@ func use_energy_boost():
 		jump_strength = jump_strength * 1
 		fall_strength = fall_strength * 1
 
-	$EnergyBoostTimer.start()
-	$EnergyBoostAnimation.play("Pulse")
+	energy_timer.start()
+	pulse_animation.play("Energy")
 
 func _on_EnergyBoostTimer_timeout():
 	speed = initial_speed
 	jump_strength = initial_jump_strength
 	fall_strength = initial_fall_strength
-	$EnergyBoostAnimation.stop()
+	
+	if invincible:
+		pulse_animation.play("Invincible")
+	else:
+		pulse_animation.play("Neutral")
+
 	$Sprites.modulate = Color(1, 1, 1, 1)
 
 func _on_InvincibilityTimer_timeout():
 	invincible = false
+	
+	if energy_timer.is_stopped():
+		pulse_animation.play("Neutral")
+	else:
+		pulse_animation.play("Energy")

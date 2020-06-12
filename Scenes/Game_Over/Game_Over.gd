@@ -1,5 +1,8 @@
 extends Node2D
 
+onready var multiplier_label : Label = $CanvasLayer/MarginContainer/GridContainer/Multiplier_Label
+onready var multiplier_value : Label = $CanvasLayer/MarginContainer/GridContainer/Multiplier
+
 var listen_for_input = false
 
 func _input(event):
@@ -15,6 +18,8 @@ func _ready():
 	set_stat("Time_Bonus", Globals.time_remaining)
 	set_stat("Coin_Bonus", Globals.coin_value_collected)
 	set_stat("MarginContainer2/Final_Score", Globals.score)
+
+	multiplier_value.text ="X%d" % (Globals.difficulty + 1)
 	
 	if Globals.died:
 		$CanvasLayer/MarginContainer3/Game_Over_Title.text = "GAME OVER"

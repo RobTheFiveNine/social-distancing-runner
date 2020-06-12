@@ -141,16 +141,17 @@ func roll_new_encounter(enemy):
 	actions = []
 	max_attempts = int(max(rand_range(1, 10), 3))
 	typos_made = 0
-	
-	seconds_to_complete = ceil(rand_range(5, 13))
-	timer.wait_time = seconds_to_complete
-	timer.one_shot = true
 
+	seconds_to_complete = ceil(rand_range(5, 10))
 	phrase_index = int(floor(rand_range(0, len(phrases))))
 	phrase = phrases[phrase_index]
 
 	if phrase_index > 10:
 		seconds_to_complete = int(max(seconds_to_complete, 10))
+
+	seconds_to_complete = seconds_to_complete * (3 - Globals.difficulty)
+	timer.wait_time = seconds_to_complete
+	timer.one_shot = true
 
 	next_letter = 0
 	phrase_label.clear()

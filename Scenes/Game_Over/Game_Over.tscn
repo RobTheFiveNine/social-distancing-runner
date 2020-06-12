@@ -136,16 +136,16 @@ anchor_right = 1.0
 anchor_bottom = 0.5
 margin_top = -183.0
 margin_bottom = 183.0
-custom_constants/margin_left = 350
+custom_constants/margin_left = 250
 __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
 [node name="GridContainer" type="GridContainer" parent="CanvasLayer/MarginContainer"]
-margin_left = 350.0
+margin_left = 250.0
 margin_right = 1920.0
-margin_bottom = 366.0
+margin_bottom = 430.0
 custom_constants/hseparation = 100
 columns = 2
 __meta__ = {
@@ -154,7 +154,7 @@ __meta__ = {
 }
 
 [node name="Label2" type="Label" parent="CanvasLayer/MarginContainer/GridContainer"]
-margin_right = 779.0
+margin_right = 902.0
 margin_bottom = 60.0
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0.352941, 0.180392, 0.0823529, 1 )
@@ -162,8 +162,8 @@ text = "ITEMS COLLECTED:"
 align = 2
 
 [node name="Items_Collected" type="Label" parent="CanvasLayer/MarginContainer/GridContainer"]
-margin_left = 879.0
-margin_right = 1570.0
+margin_left = 1002.0
+margin_right = 1670.0
 margin_bottom = 60.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 2 )
@@ -172,7 +172,7 @@ text = "10/10"
 
 [node name="Label" type="Label" parent="CanvasLayer/MarginContainer/GridContainer"]
 margin_top = 64.0
-margin_right = 779.0
+margin_right = 902.0
 margin_bottom = 124.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 2 )
@@ -184,9 +184,9 @@ __meta__ = {
 }
 
 [node name="Covidiots_Defeated" type="Label" parent="CanvasLayer/MarginContainer/GridContainer"]
-margin_left = 879.0
+margin_left = 1002.0
 margin_top = 64.0
-margin_right = 1570.0
+margin_right = 1670.0
 margin_bottom = 124.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 2 )
@@ -195,7 +195,7 @@ text = "10/10"
 
 [node name="Label6" type="Label" parent="CanvasLayer/MarginContainer/GridContainer"]
 margin_top = 128.0
-margin_right = 779.0
+margin_right = 902.0
 margin_bottom = 188.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 2 )
@@ -207,9 +207,9 @@ __meta__ = {
 }
 
 [node name="Time_Bonus" type="Label" parent="CanvasLayer/MarginContainer/GridContainer"]
-margin_left = 879.0
+margin_left = 1002.0
 margin_top = 128.0
-margin_right = 1570.0
+margin_right = 1670.0
 margin_bottom = 188.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 2 )
@@ -218,7 +218,7 @@ text = "120"
 
 [node name="Label8" type="Label" parent="CanvasLayer/MarginContainer/GridContainer"]
 margin_top = 192.0
-margin_right = 779.0
+margin_right = 902.0
 margin_bottom = 252.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 2 )
@@ -230,24 +230,47 @@ __meta__ = {
 }
 
 [node name="Coin_Bonus" type="Label" parent="CanvasLayer/MarginContainer/GridContainer"]
-margin_left = 879.0
+margin_left = 1002.0
 margin_top = 192.0
-margin_right = 1570.0
+margin_right = 1670.0
 margin_bottom = 252.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 0.352941, 0.180392, 0.0823529, 1 )
 text = "50"
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/GridContainer"]
+[node name="Multiplier_Label" type="Label" parent="CanvasLayer/MarginContainer/GridContainer"]
 margin_top = 256.0
-margin_right = 779.0
-margin_bottom = 366.0
+margin_right = 902.0
+margin_bottom = 316.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.352941, 0.180392, 0.0823529, 1 )
+text = "DIFFICULTY MULTIPLIER:"
+align = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Multiplier" type="Label" parent="CanvasLayer/MarginContainer/GridContainer"]
+margin_left = 1002.0
+margin_top = 256.0
+margin_right = 1670.0
+margin_bottom = 316.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0.352941, 0.180392, 0.0823529, 1 )
+text = "X2"
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MarginContainer/GridContainer"]
+margin_top = 320.0
+margin_right = 902.0
+margin_bottom = 430.0
 custom_constants/margin_top = 50
 
 [node name="Label10" type="Label" parent="CanvasLayer/MarginContainer/GridContainer/MarginContainer"]
 margin_top = 50.0
-margin_right = 779.0
+margin_right = 902.0
 margin_bottom = 110.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
@@ -261,15 +284,15 @@ __meta__ = {
 }
 
 [node name="MarginContainer2" type="MarginContainer" parent="CanvasLayer/MarginContainer/GridContainer"]
-margin_left = 879.0
-margin_top = 256.0
-margin_right = 1570.0
-margin_bottom = 366.0
+margin_left = 1002.0
+margin_top = 320.0
+margin_right = 1670.0
+margin_bottom = 430.0
 custom_constants/margin_top = 50
 
 [node name="Final_Score" type="Label" parent="CanvasLayer/MarginContainer/GridContainer/MarginContainer2"]
 margin_top = 50.0
-margin_right = 691.0
+margin_right = 668.0
 margin_bottom = 110.0
 size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 2 )
